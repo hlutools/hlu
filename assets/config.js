@@ -1,8 +1,8 @@
-window.HLU_CONFIG = {
-  BASE_PATH: "/hlu/",
-  API_URL: "",
-  APP_VERSION: "130926",
-  API_TIMEOUT: 15000
-};
-// Có thể gắn URL Apps Script mà không build lại:
-// localStorage.setItem("hlu_api_url", "https://script.google.com/macros/s/.../exec");
+window.HLU_CONFIG=Object.freeze({
+  BASE_PATH:'/hlu/',
+  API_URL:'https://script.google.com/macros/s/AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND/exec',
+  API_TIMEOUT:20000,
+  APP_VERSION:'130926',
+  SOURCE_URL:'https://dhttnbh.blogspot.com/',
+  UNIT_NAME:'VNPT Hoa Lư'
+});

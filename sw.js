@@ -1,26 +1,69 @@
-const VERSION = '130926-5';
-const BASE = '/hlu/';
-const STATIC_CACHE = 'hlu-static-' + VERSION;
-const DATA_CACHE = 'hlu-data-' + VERSION;
-const SHELL = [
-  BASE, BASE+'index.html', BASE+'404.html', BASE+'manifest.webmanifest',
-  BASE+'assets/app.css', BASE+'assets/app.js', BASE+'assets/config.js', BASE+'assets/logo.svg'
+const CACHE_NAME='hlu-tools-130926-v6';
+const BASE='/hlu/';
+const APP_SHELL=[
+  BASE,
+  BASE+'index.html',
+  BASE+'manifest.webmanifest',
+  BASE+'assets/app.css',
+  BASE+'assets/app.js',
+  BASE+'assets/config.js',
+  BASE+'assets/icons/icon-192.png',
+  BASE+'assets/icons/icon-512.png',
+  BASE+'assets/icons/apple-touch-icon.png',
+  BASE+'assets/android-v130926/home-header.png',
+  BASE+'assets/android-v130926/drawer-header.png',
+  BASE+'assets/android-v130926/card-soft.png',
+  BASE+'assets/android-v130926/card-docs.png',
+  BASE+'assets/android-v130926/card-firmware.png',
+  BASE+'assets/android-v130926/search-header.png',
+  BASE+'assets/android-v130926/saved-header.png',
+  BASE+'assets/android-v130926/notifications-header.png',
+  BASE+'assets/android-v130926/downloads-header.png'
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(STATIC_CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
 });
-self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => ![STATIC_CACHE,DATA_CACHE].includes(k)).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+
+self.addEventListener('activate',event=>{
+  event.waitUntil(
+    caches.keys()
+      .then(keys=>Promise.all(keys.filter(key=>key.startsWith('hlu-tools-')&&key!==CACHE_NAME).map(key=>caches.delete(key))))
+      .then(()=>self.clients.claim())
+  );
 });
-self.addEventListener('fetch', event => {
-  if(event.request.method !== 'GET') return;
-  const url = new URL(event.request.url);
-  if(url.origin !== location.origin) return;
-  if(url.pathname.startsWith(BASE+'assets/') || url.pathname === BASE+'manifest.webmanifest'){
-    event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(r => {const copy=r.clone(); caches.open(STATIC_CACHE).then(c=>c.put(event.request,copy)); return r;})));
+
+self.addEventListener('fetch',event=>{
+  const request=event.request;
+  if(request.method!=='GET') return;
+  const url=new URL(request.url);
+  if(url.origin!==self.location.origin) return;
+
+  if(request.mode==='navigate'){
+    event.respondWith(
+      fetch(request)
+        .then(response=>{
+          const copy=response.clone();
+          caches.open(CACHE_NAME).then(cache=>cache.put(BASE+'index.html',copy));
+          return response;
+        })
+        .catch(()=>caches.match(BASE+'index.html'))
+    );
     return;
   }
-  event.respondWith(fetch(event.request).then(r => {const copy=r.clone(); caches.open(DATA_CACHE).then(c=>c.put(event.request,copy)); return r;}).catch(() => caches.match(event.request).then(r => r || caches.match(BASE+'index.html'))));
+
+  if(url.pathname.startsWith(BASE)){
+    event.respondWith(
+      caches.match(request).then(cached=>{
+        if(cached) return cached;
+        return fetch(request).then(response=>{
+          if(response.ok){
+            const copy=response.clone();
+            caches.open(CACHE_NAME).then(cache=>cache.put(request,copy));
+          }
+          return response;
+        });
+      })
+    );
+  }
 });
-self.addEventListener('message', event => { if(event.data==='SKIP_WAITING') self.skipWaiting(); });

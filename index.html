@@ -3,97 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#235A98">
+  <meta name="theme-color" content="#015acb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HLU TOOLS">
+  <meta name="format-detection" content="telephone=no">
   <meta name="description" content="HLU TOOLS - Kết nối, Chia sẻ, Hiệu quả">
   <link rel="manifest" href="/hlu/manifest.webmanifest">
-  <link rel="icon" href="/hlu/assets/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/hlu/assets/icons/apple-touch-icon.png">
+  <link rel="icon" sizes="192x192" href="/hlu/assets/icons/icon-192.png">
   <link rel="stylesheet" href="/hlu/assets/app.css">
   <title>HLU TOOLS</title>
 </head>
 <body>
-<div id="app">
-  <header class="app-header">
-    <button id="menuBtn" class="menu-button" aria-label="Mở menu"><i></i><i></i><i></i></button>
-    <div class="header-brand">
-      <img src="/hlu/assets/logo.svg" alt="HLU TOOLS">
-      <div><strong>HLU TOOLS</strong><small>Kết nối - Chia sẻ - Hiệu quả</small></div>
-    </div>
-    <span class="header-spacer"></span>
+<svg class="svg-sprite" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4Z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5h14v14H4z"/><path d="M8 9h6M8 13h6M8 17h4"/><path d="M18 8h2v11a2 2 0 0 1-2 2H6"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5"/><path d="M4 18v-5h5"/><path d="M18 9a7 7 0 0 0-12-2L4 11M6 15a7 7 0 0 0 12 2l2-4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="19" r="2"/><path d="m8 11 8-5M8 13l8 5"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v7H4V6h7"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-install" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 19h14v2H5z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5zM3 7v10l9 5 9-5V7M12 12v10"/></symbol>
+  <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3M10 10h4v4h-4z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.5 3 6.1 6.7 1-4.9 4.7 1.2 6.7-6-3.2-6 3.2 1.2-6.7-4.9-4.7 6.7-1z"/></symbol>
+</svg>
+
+<div id="app" class="app-shell">
+  <header id="imageHeader" class="image-header">
+    <img id="headerImage" src="/hlu/assets/android-v130926/home-header.png" alt="HLU TOOLS">
+    <button id="headerLeftAction" class="image-header-action" type="button" aria-label="Mở menu"></button>
+  </header>
+
+  <header id="techHeader" class="tech-header hidden">
+    <button id="techBack" class="icon-button" type="button" aria-label="Quay lại">
+      <svg class="icon"><use href="#i-chevron-left"></use></svg>
+    </button>
+    <h1 id="techTitle">HLU TOOLS</h1>
+    <button id="techAction" class="icon-button invisible" type="button" aria-label="Làm mới">
+      <svg class="icon"><use href="#i-refresh"></use></svg>
+    </button>
   </header>
 
   <aside id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-brand">
-      <img src="/hlu/assets/logo.svg" alt="">
-      <strong>HLU TOOLS</strong>
-      <small>Kết nối - Chia sẻ - Hiệu quả</small>
-    </div>
-    <nav>
-      <button data-view="home"><span>⌂</span>Trang chủ</button>
-      <button data-section="news"><span>▤</span>Tin tức</button>
-      <button data-view="search"><span>⌕</span>Tìm kiếm</button>
-      <button data-view="notifications"><span>♢</span>Thông báo</button>
-      <button data-view="saved"><span>☆</span>Đã lưu</button>
-      <button data-view="downloads"><span>⇩</span>Download</button>
-      <button data-view="settings"><span>⚙</span>Cài đặt</button>
+    <img class="drawer-header-image" src="/hlu/assets/android-v130926/drawer-header.png" alt="HLU TOOLS - Kết nối - Chia sẻ - Hiệu quả">
+    <nav class="drawer-menu" aria-label="Menu chính">
+      <button type="button" data-view="home"><svg class="icon"><use href="#i-home"></use></svg><span>Trang chủ</span></button>
+      <button type="button" data-section="news"><svg class="icon"><use href="#i-news"></use></svg><span>Tin tức</span></button>
+      <button type="button" data-view="search"><svg class="icon"><use href="#i-search"></use></svg><span>Tìm kiếm</span></button>
+      <button type="button" data-view="notifications"><svg class="icon"><use href="#i-bell"></use></svg><span>Thông báo</span><i id="drawerBadge" class="menu-badge hidden">0</i></button>
+      <button type="button" data-view="saved"><svg class="icon"><use href="#i-bookmark"></use></svg><span>Đã lưu</span></button>
+      <button type="button" data-view="downloads"><svg class="icon"><use href="#i-download"></use></svg><span>Download</span></button>
+      <button type="button" data-view="settings"><svg class="icon"><use href="#i-settings"></use></svg><span>Cài đặt</span></button>
     </nav>
     <footer>Copyright © 2026 - Cường VNPT</footer>
   </aside>
-  <div id="scrim" class="scrim"></div>
+  <button id="drawerScrim" class="scrim hidden" type="button" aria-label="Đóng menu"></button>
 
-  <main>
+  <main id="mainContent">
     <section id="homeView" class="view active">
-      <div id="offlineBanner" class="offline hidden">Đang sử dụng dữ liệu đã lưu ngoại tuyến</div>
-      <button id="homeSearch" class="home-search"><span>⌕</span><em>Tìm phần mềm, tài liệu, firmware...</em></button>
+      <div id="offlineBanner" class="offline-banner hidden">Đang sử dụng dữ liệu đã lưu ngoại tuyến</div>
+      <button id="homeSearch" class="search-pill" type="button">
+        <svg class="icon"><use href="#i-search"></use></svg>
+        <span>Tìm phần mềm, tài liệu, firmware...</span>
+      </button>
 
-      <section class="home-section">
-        <div class="section-heading"><h2>TIN TỨC</h2><button data-section="news">Xem tất cả <b>›</b></button></div>
-        <div id="newsPreview" class="news-list"></div>
+      <section class="home-news-panel">
+        <div class="home-section-title">
+          <div><span class="title-dot"></span><strong>TIN TỨC MỚI</strong></div>
+          <button type="button" data-section="news">Xem tất cả <svg class="icon"><use href="#i-chevron-right"></use></svg></button>
+        </div>
+        <div id="homeNews" class="home-news-card"></div>
       </section>
 
-      <section class="download-cards" aria-label="Download">
-        <button class="download-card soft-card" data-section="soft">
-          <span class="visual"><span class="visual-icon">⚙</span><span class="orbit"></span></span>
-          <span class="card-copy"><b>SOFT VNPT</b><small>Ứng dụng &amp; công cụ dành cho kỹ thuật</small><em id="softCount">0 mục</em></span><i>›</i>
+      <section class="download-cards" aria-label="Các kho nội dung">
+        <button type="button" class="android-card" data-section="soft">
+          <img src="/hlu/assets/android-v130926/card-soft.png" alt="SOFT VNPT">
         </button>
-        <button class="download-card docs-card" data-section="docs">
-          <span class="visual"><span class="visual-icon">▤</span><span class="orbit"></span></span>
-          <span class="card-copy"><b>DOWNLOAD TÀI LIỆU</b><small>Tài liệu hướng dẫn và kỹ thuật</small><em id="docsCount">0 mục</em></span><i>›</i>
+        <button type="button" class="android-card" data-section="docs">
+          <img src="/hlu/assets/android-v130926/card-docs.png" alt="Download tài liệu">
         </button>
-        <button class="download-card firmware-card" data-section="firmware">
-          <span class="visual"><span class="visual-icon">⬡</span><span class="orbit"></span></span>
-          <span class="card-copy"><b>DOWNLOAD FIRMWARE</b><small>Firmware thiết bị các hãng</small><em id="firmwareCount">0 mục</em></span><i>›</i>
+        <button type="button" class="android-card" data-section="firmware">
+          <img src="/hlu/assets/android-v130926/card-firmware.png" alt="Download firmware">
         </button>
       </section>
     </section>
 
-    <section id="listView" class="view"><div class="page-title"><button class="back">‹</button><h1 id="listTitle">Danh mục</h1><span></span></div><div id="sectionList" class="item-list"></div></section>
-    <section id="searchView" class="view"><div class="page-title centered"><span></span><h1>Tìm kiếm</h1><span></span></div><label class="search-input"><span>⌕</span><input id="searchInput" placeholder="Tìm phần mềm, tài liệu, firmware..." autocomplete="off"></label><div id="searchList" class="item-list"></div></section>
-    <section id="notificationsView" class="view"><div class="page-title centered"><span></span><h1>Thông báo</h1><button id="markRead">Đã đọc</button></div><div id="notificationList" class="item-list"></div></section>
-    <section id="savedView" class="view"><div class="page-title centered"><span></span><h1>Đã lưu</h1><span></span></div><div id="savedList" class="item-list"></div></section>
-    <section id="downloadsView" class="view"><div class="page-title centered"><span></span><h1>Download</h1><button id="clearDownloads">Xóa</button></div><div id="downloadList" class="item-list"></div></section>
-    <section id="settingsView" class="view"><div class="page-title"><button class="back">‹</button><h1>Cài đặt</h1><span></span></div>
-      <div class="settings-list">
-        <button id="notifyBtn"><span>Thông báo bài viết mới</span><i>›</i></button>
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener"><span>Facebook</span><i>›</i></a>
-        <a href="#" id="zaloLink"><span>Zalo</span><i>›</i></a>
-        <a href="tel:"><span>Điện thoại</span><i>›</i></a>
-        <div><span>Đơn vị</span><b>VNPT Hoa Lư</b></div>
-        <div><span>Thông tin phiên bản</span><b>130926</b></div>
+    <section id="searchView" class="view">
+      <label class="search-field">
+        <svg class="icon"><use href="#i-search"></use></svg>
+        <input id="searchInput" type="search" inputmode="search" autocomplete="off" placeholder="Nhập từ khóa tìm kiếm...">
+        <button id="clearSearch" class="field-clear hidden" type="button" aria-label="Xóa từ khóa"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </label>
+      <div id="searchSummary" class="result-summary">Nhập từ khóa để tìm kiếm</div>
+      <div id="searchList" class="resource-list"></div>
+    </section>
+
+    <section id="notificationsView" class="view">
+      <div class="page-toolbar">
+        <span id="notificationSummary">Thông báo nội dung mới</span>
+        <button id="markRead" type="button">Đánh dấu đã đọc</button>
       </div>
-      <div class="api-box"><label for="apiInput">URL Google Apps Script</label><input id="apiInput" type="url" placeholder="https://script.google.com/macros/s/.../exec"><button id="saveApi">Lưu và đồng bộ</button></div>
+      <div id="notificationList" class="notification-list"></div>
     </section>
-    <section id="detailView" class="view"><div class="page-title"><button class="back">‹</button><h1>Chi tiết</h1><button id="saveDetail" class="star">☆</button></div><article id="detail"></article></section>
+
+    <section id="savedView" class="view">
+      <div id="savedSummary" class="result-summary">Nội dung đã lưu</div>
+      <div id="savedList" class="resource-list"></div>
+    </section>
+
+    <section id="downloadsView" class="view">
+      <div class="page-toolbar">
+        <span id="downloadSummary">Lịch sử tải xuống</span>
+        <button id="clearDownloads" type="button"><svg class="icon"><use href="#i-trash"></use></svg> Xóa</button>
+      </div>
+      <div id="downloadList" class="resource-list"></div>
+    </section>
+
+    <section id="sectionView" class="view">
+      <div class="section-tools">
+        <label class="compact-search"><svg class="icon"><use href="#i-search"></use></svg><input id="sectionSearch" type="search" placeholder="Tìm trong danh mục..."></label>
+        <select id="brandFilter" aria-label="Lọc theo hãng"><option value="">Tất cả hãng</option></select>
+      </div>
+      <div id="sectionSummary" class="result-summary"></div>
+      <div id="sectionList" class="resource-list"></div>
+    </section>
+
+    <section id="settingsView" class="view">
+      <div class="settings-card">
+        <button id="installApp" type="button"><span><svg class="icon"><use href="#i-install"></use></svg><b>Cài HLU TOOLS</b><small>Thêm ứng dụng vào màn hình chính</small></span><svg class="icon"><use href="#i-chevron-right"></use></svg></button>
+        <button id="refreshData" type="button"><span><svg class="icon"><use href="#i-refresh"></use></svg><b>Đồng bộ dữ liệu</b><small id="syncStatus">Google Apps Script</small></span><svg class="icon"><use href="#i-chevron-right"></use></svg></button>
+        <button id="enableNotifications" type="button"><span><svg class="icon"><use href="#i-bell"></use></svg><b>Thông báo bài mới</b><small id="notificationPermission">Kiểm tra quyền thông báo</small></span><svg class="icon"><use href="#i-chevron-right"></use></svg></button>
+        <a id="sourceWebsite" href="https://dhttnbh.blogspot.com/" target="_blank" rel="noopener"><span><svg class="icon"><use href="#i-external"></use></svg><b>Website dữ liệu</b><small>dhttnbh.blogspot.com</small></span><svg class="icon"><use href="#i-chevron-right"></use></svg></a>
+        <div><span><svg class="icon"><use href="#i-home"></use></svg><b>Đơn vị</b><small>VNPT Hoa Lư</small></span></div>
+        <div><span><svg class="icon"><use href="#i-chip"></use></svg><b>Thông tin phiên bản</b><small>130926 · Web/PWA</small></span></div>
+      </div>
+    </section>
   </main>
 
-  <nav class="bottom-nav">
-    <button data-view="home" class="active"><span>⌂</span><small>Trang chủ</small></button>
-    <button data-view="search"><span>⌕</span><small>Tìm kiếm</small></button>
-    <button data-view="notifications" class="notify-tab"><span>♢</span><i id="notifyBadge" class="hidden">0</i><small>Thông báo</small></button>
-    <button data-view="saved"><span>☆</span><small>Đã lưu</small></button>
-    <button data-view="downloads"><span>⇩</span><small>Download</small></button>
+  <nav class="bottom-nav" aria-label="Thanh điều hướng">
+    <button type="button" data-view="home" class="active"><svg class="icon"><use href="#i-home"></use></svg><small>Trang chủ</small></button>
+    <button type="button" data-view="search"><svg class="icon"><use href="#i-search"></use></svg><small>Tìm kiếm</small></button>
+    <button type="button" data-view="notifications" class="notification-tab"><svg class="icon"><use href="#i-bell"></use></svg><i id="notificationBadge" class="nav-badge hidden">0</i><small>Thông báo</small></button>
+    <button type="button" data-view="saved"><svg class="icon"><use href="#i-bookmark"></use></svg><small>Đã lưu</small></button>
+    <button type="button" data-view="downloads"><svg class="icon"><use href="#i-download"></use></svg><small>Download</small></button>
   </nav>
-  <div id="toast" class="toast"></div>
+
+  <div id="modalScrim" class="modal-scrim hidden"></div>
+
+  <section id="detailSheet" class="bottom-sheet hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="sheet-handle"></div>
+    <header><h2 id="detailTitle">Chi tiết</h2><button type="button" data-close-sheet="detailSheet" aria-label="Đóng"><svg class="icon"><use href="#i-close"></use></svg></button></header>
+    <div id="detailContent" class="sheet-content"></div>
+  </section>
+
+  <section id="viewerSheet" class="viewer-sheet hidden" role="dialog" aria-modal="true" aria-labelledby="viewerTitle">
+    <header>
+      <button type="button" data-close-sheet="viewerSheet" aria-label="Quay lại"><svg class="icon"><use href="#i-chevron-left"></use></svg></button>
+      <h2 id="viewerTitle">Xem nội dung</h2>
+      <a id="viewerExternal" href="#" target="_blank" rel="noopener" aria-label="Mở liên kết"><svg class="icon"><use href="#i-external"></use></svg></a>
+    </header>
+    <iframe id="contentViewer" title="Nội dung HLU TOOLS" loading="lazy"></iframe>
+  </section>
+
+  <section id="installSheet" class="bottom-sheet install-sheet hidden" role="dialog" aria-modal="true" aria-labelledby="installTitle">
+    <div class="sheet-handle"></div>
+    <header><h2 id="installTitle">Cài đặt HLU TOOLS</h2><button type="button" data-close-sheet="installSheet" aria-label="Đóng"><svg class="icon"><use href="#i-close"></use></svg></button></header>
+    <div id="installInstructions" class="sheet-content"></div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </div>
+
 <script src="/hlu/assets/config.js"></script>
 <script src="/hlu/assets/app.js"></script>
 </body>

@@ -1,4 +1,14 @@
 import fs from 'node:fs';
-const out='dist'; fs.rmSync(out,{recursive:true,force:true}); fs.mkdirSync(out,{recursive:true});
-for(const name of fs.readdirSync('.')) if(!['.git','.github','dist','node_modules','scripts','package.json'].includes(name)) fs.cpSync(name,out+'/'+name,{recursive:true});
-console.log('Static site built in dist/');
+
+const outputDirectory='dist';
+const excluded=new Set(['.git','.github','dist','node_modules','scripts','package.json']);
+
+fs.rmSync(outputDirectory,{recursive:true,force:true});
+fs.mkdirSync(outputDirectory,{recursive:true});
+
+for(const name of fs.readdirSync('.')){
+  if(excluded.has(name)) continue;
+  fs.cpSync(name,outputDirectory+'/'+name,{recursive:true});
+}
+
+console.log('HLU TOOLS static site built in dist/');

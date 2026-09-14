@@ -2,20 +2,54 @@
   "id": "/hlu/",
   "name": "HLU TOOLS",
   "short_name": "HLU TOOLS",
-  "description": "HLU TOOLS - Kết nối, Chia sẻ, Hiệu quả",
+  "description": "Kết nối - Chia sẻ - Hiệu quả",
   "lang": "vi",
+  "dir": "ltr",
   "start_url": "/hlu/",
   "scope": "/hlu/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#f4f7fb",
-  "theme_color": "#235A98",
+  "background_color": "#f5f7fa",
+  "theme_color": "#015acb",
+  "categories": ["utilities", "productivity"],
   "icons": [
-    {"src":"/hlu/assets/logo.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+    {
+      "src": "/hlu/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/hlu/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/hlu/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    {"name":"Tìm kiếm","url":"/hlu/?view=search"},
-    {"name":"Đã lưu","url":"/hlu/?view=saved"},
-    {"name":"Download","url":"/hlu/?view=downloads"}
+    {
+      "name": "Tìm kiếm",
+      "short_name": "Tìm kiếm",
+      "url": "/hlu/?view=search",
+      "icons": [{"src": "/hlu/assets/icons/icon-192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Đã lưu",
+      "short_name": "Đã lưu",
+      "url": "/hlu/?view=saved",
+      "icons": [{"src": "/hlu/assets/icons/icon-192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Download",
+      "short_name": "Download",
+      "url": "/hlu/?view=downloads",
+      "icons": [{"src": "/hlu/assets/icons/icon-192.png", "sizes": "192x192"}]
+    }
   ]
 }
