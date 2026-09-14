@@ -1,4 +1,4 @@
-const VERSION = '130926-4';
+const VERSION = '130926-5';
 const BASE = '/hlu/';
 const STATIC_CACHE = 'hlu-static-' + VERSION;
 const DATA_CACHE = 'hlu-data-' + VERSION;
