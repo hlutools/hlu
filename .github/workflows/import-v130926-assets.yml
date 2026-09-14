@@ -39,11 +39,11 @@ jobs:
             curl --fail --location --retry 4 --retry-all-errors               "${SOURCE_ORIGIN}/android-v130926/${name}"               --output "assets/android-v130926/${name}"
             test "$(file -b --mime-type "assets/android-v130926/${name}")" = "image/png"
           done
-          icon_files=(icon-192.png icon-512.png apple-touch-icon.png)
-          for name in "${icon_files[@]}"; do
+          for name in icon-192.png icon-512.png; do
             curl --fail --location --retry 4 --retry-all-errors               "${SOURCE_ORIGIN}/icons/${name}"               --output "assets/icons/${name}"
             test "$(file -b --mime-type "assets/icons/${name}")" = "image/png"
           done
+          cp assets/icons/icon-192.png assets/icons/apple-touch-icon.png
           test "$(find assets/android-v130926 -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 9
           test "$(find assets/icons -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 3
 
