@@ -1,4 +1,4 @@
-name: Verify Android 130926 assets
+name: Preview Android 130926 assets
 
 on:
   push:
@@ -10,49 +10,29 @@ permissions:
   contents: write
 
 jobs:
-  verify-assets:
+  preview-assets:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Record and verify exact PNG metadata
+      - name: Create review previews
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import json, pathlib, struct
-          root = pathlib.Path("assets/android-v130926")
-          names = [
-              "home-header.png", "drawer-header.png", "card-soft.png",
-              "card-docs.png", "card-firmware.png", "search-header.png",
-              "saved-header.png", "notifications-header.png",
-              "downloads-header.png",
-          ]
-          result = {}
-          for name in names:
-              path = root / name
-              data = path.read_bytes()
-              if data[:8] != b"\x89PNG\r\n\x1a\n":
-                  raise SystemExit(f"{name} is not PNG")
-              width, height = struct.unpack(">II", data[16:24])
-              result[name] = {"width": width, "height": height, "bytes": len(data)}
-          if len(result) != 9:
-              raise SystemExit("Expected exactly 9 Android UI assets")
-          (root / "metadata.json").write_text(
-              json.dumps(result, ensure_ascii=False, indent=2) + "\n",
-              encoding="utf-8",
-          )
-          PY
-          test -s assets/icons/icon-192.png
-          test -s assets/icons/icon-512.png
-          test -s assets/icons/apple-touch-icon.png
+          mkdir -p assets/android-v130926/previews
+          ffmpeg -hide_banner -loglevel error -y -i assets/android-v130926/home-header.png -vf "scale=960:-2" assets/android-v130926/previews/home-header.png
+          ffmpeg -hide_banner -loglevel error -y -i assets/android-v130926/drawer-header.png -vf "scale=480:-2" assets/android-v130926/previews/drawer-header.png
+          ffmpeg -hide_banner -loglevel error -y -i assets/android-v130926/search-header.png -vf "scale=960:-2" assets/android-v130926/previews/search-header.png
+          ffmpeg -hide_banner -loglevel error -y -i assets/android-v130926/saved-header.png -vf "scale=960:-2" assets/android-v130926/previews/saved-header.png
+          ffmpeg -hide_banner -loglevel error -y -i assets/android-v130926/notifications-header.png -vf "scale=960:-2" assets/android-v130926/previews/notifications-header.png
+          ffmpeg -hide_banner -loglevel error -y -i assets/android-v130926/downloads-header.png -vf "scale=960:-2" assets/android-v130926/previews/downloads-header.png
 
-      - name: Commit metadata
+      - name: Commit previews
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/android-v130926/metadata.json
+          git add assets/android-v130926/previews
           git diff --cached --quiet && exit 0
-          git commit -m "Verify exact Android 130926 asset metadata"
+          git commit -m "Add temporary Android 130926 review previews"
           git push
