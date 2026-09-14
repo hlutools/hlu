@@ -1,0 +1,47 @@
+{
+  "home-header.png": {
+    "width": 3072,
+    "height": 512,
+    "bytes": 1835843
+  },
+  "drawer-header.png": {
+    "width": 1361,
+    "height": 1156,
+    "bytes": 1913818
+  },
+  "card-soft.png": {
+    "width": 1250,
+    "height": 272,
+    "bytes": 290423
+  },
+  "card-docs.png": {
+    "width": 1250,
+    "height": 270,
+    "bytes": 314850
+  },
+  "card-firmware.png": {
+    "width": 1250,
+    "height": 272,
+    "bytes": 355931
+  },
+  "search-header.png": {
+    "width": 3072,
+    "height": 512,
+    "bytes": 910399
+  },
+  "saved-header.png": {
+    "width": 3072,
+    "height": 512,
+    "bytes": 779607
+  },
+  "notifications-header.png": {
+    "width": 3072,
+    "height": 512,
+    "bytes": 1034386
+  },
+  "downloads-header.png": {
+    "width": 3072,
+    "height": 512,
+    "bytes": 974711
+  }
+}
