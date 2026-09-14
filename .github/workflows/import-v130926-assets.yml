@@ -1,57 +1,58 @@
-name: Import Android 130926 assets
+name: Verify Android 130926 assets
 
 on:
   push:
     branches: [main]
     paths:
       - ".github/workflows/import-v130926-assets.yml"
-  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  import-assets:
+  verify-assets:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download exact Site v4 assets
-        env:
-          SOURCE_ORIGIN: https://vnpt-nbh-tools.vucuong87vn.chatgpt.site
+      - name: Record and verify exact PNG metadata
         run: |
           set -euo pipefail
-          mkdir -p assets/android-v130926 assets/icons
-          ui_files=(
-            home-header.png
-            drawer-header.png
-            card-soft.png
-            card-docs.png
-            card-firmware.png
-            search-header.png
-            saved-header.png
-            notifications-header.png
-            downloads-header.png
+          python - <<'PY'
+          import json, pathlib, struct
+          root = pathlib.Path("assets/android-v130926")
+          names = [
+              "home-header.png", "drawer-header.png", "card-soft.png",
+              "card-docs.png", "card-firmware.png", "search-header.png",
+              "saved-header.png", "notifications-header.png",
+              "downloads-header.png",
+          ]
+          result = {}
+          for name in names:
+              path = root / name
+              data = path.read_bytes()
+              if data[:8] != b"\x89PNG\r\n\x1a\n":
+                  raise SystemExit(f"{name} is not PNG")
+              width, height = struct.unpack(">II", data[16:24])
+              result[name] = {"width": width, "height": height, "bytes": len(data)}
+          if len(result) != 9:
+              raise SystemExit("Expected exactly 9 Android UI assets")
+          (root / "metadata.json").write_text(
+              json.dumps(result, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
           )
-          for name in "${ui_files[@]}"; do
-            curl --fail --location --retry 4 --retry-all-errors               "${SOURCE_ORIGIN}/android-v130926/${name}"               --output "assets/android-v130926/${name}"
-            test "$(file -b --mime-type "assets/android-v130926/${name}")" = "image/png"
-          done
-          for name in icon-192.png icon-512.png; do
-            curl --fail --location --retry 4 --retry-all-errors               "${SOURCE_ORIGIN}/icons/${name}"               --output "assets/icons/${name}"
-            test "$(file -b --mime-type "assets/icons/${name}")" = "image/png"
-          done
-          cp assets/icons/icon-192.png assets/icons/apple-touch-icon.png
-          test "$(find assets/android-v130926 -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 9
-          test "$(find assets/icons -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 3
+          PY
+          test -s assets/icons/icon-192.png
+          test -s assets/icons/icon-512.png
+          test -s assets/icons/apple-touch-icon.png
 
-      - name: Commit imported assets
+      - name: Commit metadata
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/android-v130926 assets/icons
+          git add assets/android-v130926/metadata.json
           git diff --cached --quiet && exit 0
-          git commit -m "Import exact Android 130926 assets from Site v4"
+          git commit -m "Verify exact Android 130926 asset metadata"
           git push
