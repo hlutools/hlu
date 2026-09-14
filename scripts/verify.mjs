@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+const required=['index.html','manifest.webmanifest','sw.js','assets/app.css','assets/app.js','assets/config.js','assets/logo.svg'];
+for(const file of required) if(!fs.existsSync(file)) throw new Error('Thiếu file: '+file);
+const index=fs.readFileSync('index.html','utf8');
+const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
+const sw=fs.readFileSync('sw.js','utf8');
+for(const ref of ['/hlu/manifest.webmanifest','/hlu/assets/app.css','/hlu/assets/app.js']) if(!index.includes(ref)) throw new Error('Sai base path: '+ref);
+if(manifest.start_url!=='/hlu/'||manifest.scope!=='/hlu/'||manifest.id!=='/hlu/') throw new Error('Manifest chưa đúng /hlu/');
+if(!sw.includes("BASE = '/hlu/'")) throw new Error('Service worker chưa đúng /hlu/');
+console.log('HLU TOOLS verification passed.');
