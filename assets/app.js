@@ -85,6 +85,8 @@ document.addEventListener('click',e=>{
 $$('.back').forEach(b=>b.onclick=()=>show('home'));$('#searchInput').oninput=search;
 $('#saveDetail').onclick=()=>current&&toggleSave(current.id);
 $('#clearDownloads').onclick=()=>{write(KEYS.downloads,[]);renderDownloads();toast('Đã xóa lịch sử')};
+$('#apiInput').value=apiUrl();
+$('#saveApi').onclick=()=>{const u=$('#apiInput').value.trim();if(u&&!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(u))return toast('URL Apps Script chưa đúng');if(u)localStorage.setItem('hlu_api_url',u);else localStorage.removeItem('hlu_api_url');toast('Đã lưu URL dữ liệu');loadData(true)};
 $('#notifyBtn').onclick=async()=>{if(!('Notification'in window))return toast('Trình duyệt không hỗ trợ thông báo');const p=await Notification.requestPermission();toast(p==='granted'?'Đã bật thông báo':'Chưa cấp quyền thông báo')};
 window.addEventListener('online',()=>loadData(true));window.addEventListener('offline',()=>$('#offlineBanner').classList.remove('hidden'));
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register(BASE+'sw.js',{scope:BASE}));
