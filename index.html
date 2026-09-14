@@ -12,65 +12,83 @@
 </head>
 <body>
 <div id="app">
-  <header class="topbar">
-    <button id="menuBtn" class="icon-btn" aria-label="Mở menu"><span></span><span></span><span></span></button>
-    <div class="brand"><img src="/hlu/assets/logo.svg" alt=""><div><strong>HLU TOOLS</strong><small>Kết nối - Chia sẻ - Hiệu quả</small></div></div>
-    <button id="refreshBtn" class="icon-btn refresh" aria-label="Làm mới">↻</button>
+  <header class="app-header">
+    <button id="menuBtn" class="menu-button" aria-label="Mở menu"><i></i><i></i><i></i></button>
+    <div class="header-brand">
+      <img src="/hlu/assets/logo.svg" alt="HLU TOOLS">
+      <div><strong>HLU TOOLS</strong><small>Kết nối - Chia sẻ - Hiệu quả</small></div>
+    </div>
+    <span class="header-spacer"></span>
   </header>
 
   <aside id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-head"><img src="/hlu/assets/logo.svg" alt=""><h1>HLU TOOLS</h1><p>Kết nối - Chia sẻ - Hiệu quả</p></div>
-    <nav id="drawerNav">
-      <button data-view="home">⌂ <span>Trang chủ</span></button>
-      <button data-section="news">▤ <span>Tin tức</span></button>
-      <button data-view="search">⌕ <span>Tìm kiếm</span></button>
-      <button data-view="saved">★ <span>Đã lưu</span></button>
-      <button data-view="downloads">⇩ <span>Download</span></button>
-      <button data-view="settings">⚙ <span>Cài đặt</span></button>
+    <div class="drawer-brand">
+      <img src="/hlu/assets/logo.svg" alt="">
+      <strong>HLU TOOLS</strong>
+      <small>Kết nối - Chia sẻ - Hiệu quả</small>
+    </div>
+    <nav>
+      <button data-view="home"><span>⌂</span>Trang chủ</button>
+      <button data-section="news"><span>▤</span>Tin tức</button>
+      <button data-view="search"><span>⌕</span>Tìm kiếm</button>
+      <button data-view="notifications"><span>♢</span>Thông báo</button>
+      <button data-view="saved"><span>☆</span>Đã lưu</button>
+      <button data-view="downloads"><span>⇩</span>Download</button>
+      <button data-view="settings"><span>⚙</span>Cài đặt</button>
     </nav>
     <footer>Copyright © 2026 - Cường VNPT</footer>
   </aside>
   <div id="scrim" class="scrim"></div>
 
-  <main id="content" tabindex="-1">
+  <main>
     <section id="homeView" class="view active">
-      <div id="offlineBanner" class="offline hidden">Đang hiển thị dữ liệu đã lưu ngoại tuyến</div>
-      <section class="section-block"><div class="section-title"><h2>TIN TỨC</h2><button data-section="news">Xem tất cả ›</button></div><div id="newsPreview" class="horizontal-list"></div></section>
-      <section class="section-block"><div class="section-title"><h2>DOWNLOAD CENTER</h2></div>
-        <div class="category-row">
-          <button class="category-card soft" data-section="soft"><span class="card-icon">⚙</span><span><b>SOFT VNPT</b><small>Phần mềm và công cụ</small></span><i>›</i></button>
-          <button class="category-card docs" data-section="docs"><span class="card-icon">▤</span><span><b>TÀI LIỆU</b><small>Tài liệu kỹ thuật</small></span><i>›</i></button>
-          <button class="category-card firmware" data-section="firmware"><span class="card-icon">⬡</span><span><b>FIRMWARE</b><small>Firmware thiết bị</small></span><i>›</i></button>
-        </div>
+      <div id="offlineBanner" class="offline hidden">Đang sử dụng dữ liệu đã lưu ngoại tuyến</div>
+      <button id="homeSearch" class="home-search"><span>⌕</span><em>Tìm phần mềm, tài liệu, firmware...</em></button>
+
+      <section class="home-section">
+        <div class="section-heading"><h2>TIN TỨC</h2><button data-section="news">Xem tất cả <b>›</b></button></div>
+        <div id="newsPreview" class="news-list"></div>
       </section>
-      <section class="section-block"><div class="section-title"><h2>MỚI CẬP NHẬT</h2></div><div id="latestList" class="item-list"></div></section>
+
+      <section class="download-cards" aria-label="Download">
+        <button class="download-card soft-card" data-section="soft">
+          <span class="visual"><span class="visual-icon">⚙</span><span class="orbit"></span></span>
+          <span class="card-copy"><b>SOFT VNPT</b><small>Ứng dụng &amp; công cụ dành cho kỹ thuật</small><em id="softCount">0 mục</em></span><i>›</i>
+        </button>
+        <button class="download-card docs-card" data-section="docs">
+          <span class="visual"><span class="visual-icon">▤</span><span class="orbit"></span></span>
+          <span class="card-copy"><b>DOWNLOAD TÀI LIỆU</b><small>Tài liệu hướng dẫn và kỹ thuật</small><em id="docsCount">0 mục</em></span><i>›</i>
+        </button>
+        <button class="download-card firmware-card" data-section="firmware">
+          <span class="visual"><span class="visual-icon">⬡</span><span class="orbit"></span></span>
+          <span class="card-copy"><b>DOWNLOAD FIRMWARE</b><small>Firmware thiết bị các hãng</small><em id="firmwareCount">0 mục</em></span><i>›</i>
+        </button>
+      </section>
     </section>
 
-    <section id="listView" class="view"><div class="page-head"><button class="back">‹</button><h2 id="listTitle">Danh mục</h2><span></span></div><div id="sectionList" class="item-list"></div></section>
-    <section id="searchView" class="view"><div class="page-head centered"><span></span><h2>Tìm kiếm</h2><span></span></div><label class="search-box">⌕<input id="searchInput" placeholder="Tìm phần mềm, tài liệu, firmware..." autocomplete="off"></label><div id="searchList" class="item-list"></div></section>
-    <section id="savedView" class="view"><div class="page-head centered"><span></span><h2>Đã lưu</h2><span></span></div><div id="savedList" class="item-list"></div></section>
-    <section id="downloadsView" class="view"><div class="page-head centered"><span></span><h2>Download</h2><button id="clearDownloads" class="text-btn">Xóa</button></div><div id="downloadList" class="item-list"></div></section>
-    <section id="settingsView" class="view"><div class="page-head"><button class="back">‹</button><h2>Cài đặt</h2><span></span></div>
-      <div class="settings-card">
-        <button id="notifyBtn"><span>🔔 Bật thông báo bài mới</span><i>›</i></button>
-        <div><span>Phiên bản Web App</span><b>130926</b></div>
+    <section id="listView" class="view"><div class="page-title"><button class="back">‹</button><h1 id="listTitle">Danh mục</h1><span></span></div><div id="sectionList" class="item-list"></div></section>
+    <section id="searchView" class="view"><div class="page-title centered"><span></span><h1>Tìm kiếm</h1><span></span></div><label class="search-input"><span>⌕</span><input id="searchInput" placeholder="Tìm phần mềm, tài liệu, firmware..." autocomplete="off"></label><div id="searchList" class="item-list"></div></section>
+    <section id="notificationsView" class="view"><div class="page-title centered"><span></span><h1>Thông báo</h1><button id="markRead">Đã đọc</button></div><div id="notificationList" class="item-list"></div></section>
+    <section id="savedView" class="view"><div class="page-title centered"><span></span><h1>Đã lưu</h1><span></span></div><div id="savedList" class="item-list"></div></section>
+    <section id="downloadsView" class="view"><div class="page-title centered"><span></span><h1>Download</h1><button id="clearDownloads">Xóa</button></div><div id="downloadList" class="item-list"></div></section>
+    <section id="settingsView" class="view"><div class="page-title"><button class="back">‹</button><h1>Cài đặt</h1><span></span></div>
+      <div class="settings-list">
+        <button id="notifyBtn"><span>Thông báo bài viết mới</span><i>›</i></button>
         <a href="https://www.facebook.com/" target="_blank" rel="noopener"><span>Facebook</span><i>›</i></a>
+        <a href="#" id="zaloLink"><span>Zalo</span><i>›</i></a>
         <a href="tel:"><span>Điện thoại</span><i>›</i></a>
         <div><span>Đơn vị</span><b>VNPT Hoa Lư</b></div>
+        <div><span>Thông tin phiên bản</span><b>130926</b></div>
       </div>
-      <div class="api-card">
-        <label for="apiInput">URL dữ liệu Google Apps Script</label>
-        <input id="apiInput" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/.../exec">
-        <button id="saveApi">Lưu và đồng bộ dữ liệu</button>
-        <small>URL được lưu riêng trên thiết bị này.</small>
-      </div>
+      <div class="api-box"><label for="apiInput">URL Google Apps Script</label><input id="apiInput" type="url" placeholder="https://script.google.com/macros/s/.../exec"><button id="saveApi">Lưu và đồng bộ</button></div>
     </section>
-    <section id="detailView" class="view"><div class="page-head"><button class="back">‹</button><h2>Chi tiết</h2><button id="saveDetail" class="save-top">☆</button></div><article id="detail"></article></section>
+    <section id="detailView" class="view"><div class="page-title"><button class="back">‹</button><h1>Chi tiết</h1><button id="saveDetail" class="star">☆</button></div><article id="detail"></article></section>
   </main>
 
   <nav class="bottom-nav">
     <button data-view="home" class="active"><span>⌂</span><small>Trang chủ</small></button>
     <button data-view="search"><span>⌕</span><small>Tìm kiếm</small></button>
+    <button data-view="notifications" class="notify-tab"><span>♢</span><i id="notifyBadge" class="hidden">0</i><small>Thông báo</small></button>
     <button data-view="saved"><span>☆</span><small>Đã lưu</small></button>
     <button data-view="downloads"><span>⇩</span><small>Download</small></button>
   </nav>
