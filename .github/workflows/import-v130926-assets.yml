@@ -1,0 +1,57 @@
+name: Import Android 130926 assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/import-v130926-assets.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-assets:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download exact Site v4 assets
+        env:
+          SOURCE_ORIGIN: https://vnpt-nbh-tools.vucuong87vn.chatgpt.site
+        run: |
+          set -euo pipefail
+          mkdir -p assets/android-v130926 assets/icons
+          ui_files=(
+            home-header.png
+            drawer-header.png
+            card-soft.png
+            card-docs.png
+            card-firmware.png
+            search-header.png
+            saved-header.png
+            notifications-header.png
+            downloads-header.png
+          )
+          for name in "${ui_files[@]}"; do
+            curl --fail --location --retry 4 --retry-all-errors               "${SOURCE_ORIGIN}/android-v130926/${name}"               --output "assets/android-v130926/${name}"
+            test "$(file -b --mime-type "assets/android-v130926/${name}")" = "image/png"
+          done
+          icon_files=(icon-192.png icon-512.png apple-touch-icon.png)
+          for name in "${icon_files[@]}"; do
+            curl --fail --location --retry 4 --retry-all-errors               "${SOURCE_ORIGIN}/icons/${name}"               --output "assets/icons/${name}"
+            test "$(file -b --mime-type "assets/icons/${name}")" = "image/png"
+          done
+          test "$(find assets/android-v130926 -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 9
+          test "$(find assets/icons -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 3
+
+      - name: Commit imported assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/android-v130926 assets/icons
+          git diff --cached --quiet && exit 0
+          git commit -m "Import exact Android 130926 assets from Site v4"
+          git push
