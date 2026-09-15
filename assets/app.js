@@ -89,6 +89,22 @@ function safeUrl(value){
     return '';
   }
 }
+function imageUrl(value){
+  const url=safeUrl(value);
+  if(!url) return '';
+  try{
+    const parsed=new URL(url);
+    const host=parsed.hostname.toLowerCase();
+    if(host==='drive.google.com'||host.endsWith('.drive.google.com')){
+      let id='';
+      const fileMatch=parsed.pathname.match(/\/file\/d\/([^/?#]+)/i);
+      if(fileMatch) id=fileMatch[1];
+      if(!id) id=parsed.searchParams.get('id')||'';
+      if(id) return 'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1200';
+    }
+  }catch(error){}
+  return url;
+}
 function normalizeSection(value){
   const name=fold(value).replace(/[_-]+/g,' ').trim();
   if(!name) return 'docs';
@@ -116,7 +132,7 @@ function normalizeItem(row,index,forcedSection){
     viewUrl:safeUrl(first(source,['viewUrl','viewURL','previewUrl','previewURL','url','URL','linkView','linkXem','xem'],'')),
     downloadUrl:safeUrl(first(source,['downloadUrl','downloadURL','fileUrl','fileURL','linkDownload','linkTai','tai'],'')),
     resolvedDownloadUrl:safeUrl(first(source,['resolvedDownloadUrl','directDownloadUrl','directUrl'],'')),
-    iconUrl:safeUrl(first(source,['iconUrl','iconURL','imageUrl','imageURL','thumbnail','thumb','anh'],'')),
+    iconUrl:imageUrl(first(source,['iconUrl','iconURL','imageUrl','imageURL','thumbnail','thumb','anh'],'')),
     fileType:text(first(source,['fileType','FileType','format','dinhDang','DinhDang'],'')),
     updatedAt:text(first(source,['updatedAt','updated','date','Date','ngayCapNhat','NgayCapNhat','createdAt','created'],'')),
     sortOrder:Number(first(source,['sortOrder','order','thuTu','ThuTu','stt','STT'],0))||0,
