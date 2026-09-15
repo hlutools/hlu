@@ -1,4 +1,4 @@
-const CACHE_NAME='hlu-tools-130926-v6';
+const CACHE_NAME='hlu-tools-130926-v7';
 const BASE='/hlu/';
 const APP_SHELL=[
   BASE,
