@@ -1,49 +1,53 @@
-# HLU TOOLS – GitHub Pages
+# HLU TOOLS – GitHub Pages / 150926.3
 
-Bộ source tĩnh Web App/PWA dùng giao diện ảnh gốc của bản Android 130926.
+Bản Web App/PWA của HLU TOOLS được đồng bộ theo **Android Version 150926.3** để hai nền tảng giống nhau tối đa về giao diện, điều hướng và trạng thái dữ liệu.
 
 Địa chỉ phát hành: https://hlutools.github.io/hlu/
 
-## Thành phần đã tích hợp
+## Đồng bộ theo Android 150926.3
 
-- Giao diện ngang và bộ header/drawer/card gốc Android 130926.
-- Tìm kiếm toàn bộ dữ liệu và lọc theo danh mục/hãng.
-- Lưu bài, thông báo nội dung mới và lịch sử download bằng bộ nhớ trên thiết bị.
-- Xem nội dung ngay trong Web App và mở/tải liên kết ngoài.
-- Đồng bộ Google Apps Script, có dữ liệu cache khi ngoại tuyến.
-- PWA cho Android và iOS, manifest và service worker chạy dưới base path /hlu/.
-- GitHub Actions tự kiểm tra, build, đóng gói source và deploy Pages.
+- Giữ nguyên bộ ảnh giao diện Android: Header Trang chủ, Drawer, 3 card SOFT/Tài liệu/Firmware và các header Tìm kiếm/Thông báo/Đã lưu/Download.
+- Drawer đúng thứ tự: **Trang chủ → Tin tức → Soft → Tài liệu → Firmware → Đã lưu → Download → Cài đặt**.
+- Bottom navigation: **Trang chủ · Tìm kiếm · Thông báo · Đã lưu · Download**.
+- Tin tức có badge **Mới** độc lập với trạng thái đã đọc của Notification. Badge chỉ mất khi người dùng thật sự mở chi tiết bài tin.
+- “Đọc hết” Notification không làm mất badge **Mới** của Tin tức.
+- Trang Tin tức ưu tiên nội dung chưa đọc, có banner số bài mới và giao diện card tương ứng Android.
+- Danh mục SOFT/Tài liệu/Firmware dùng card, tìm kiếm và bộ lọc hãng (Tài liệu/Firmware) gần với Android.
+- Tìm kiếm khi chưa nhập từ khóa hiển thị toàn bộ nội dung như Android.
+- Chi tiết nội dung dùng màn hình riêng, hỗ trợ mô tả, ghi chú, ảnh, metadata, tải xuống và xem nội dung.
+- Lịch sử Download lưu theo tên nội dung như Android.
+- Cài đặt chia nhóm **DỮ LIỆU / HỖ TRỢ / LIÊN HỆ / THÔNG TIN**, có Facebook, Zalo, điện thoại, đơn vị và phiên bản 150926.3.
+- Có màn **Góp ý cho nhà phát triển**, POST dữ liệu về Apps Script với action `feedback`.
+- Đồng bộ dữ liệu xóa cache dữ liệu rồi tải lại từ máy chủ.
+- Web/PWA vẫn giữ cache ngoại tuyến, Service Worker và khả năng cài lên màn hình chính.
 
-## Phát hành trên GitHub Pages
+## Khác biệt bắt buộc do nền tảng Web
 
-1. Đặt toàn bộ file và thư mục của gói source tại thư mục gốc nhánh main của repository hlutools/hlu.
-2. Mở Settings → Pages trên GitHub.
-3. Trong Build and deployment, chọn Source là GitHub Actions.
-4. Push lên main hoặc chạy workflow Build and deploy HLU TOOLS bằng nút Run workflow.
-5. Chờ hai job Verify and package và Deploy GitHub Pages chuyển sang màu xanh.
-6. Mở https://hlutools.github.io/hlu/ và tải lại trang nếu trình duyệt còn cache bản cũ.
-
-Không đổi base path /hlu/ nếu repository vẫn có tên hlu.
-
-## Cài trên iPhone/iPad
-
-Mở địa chỉ bằng Safari, chạm Chia sẻ, chọn Thêm vào Màn hình chính, rồi chạm Thêm. Sau lần mở đầu tiên, các tài nguyên giao diện được lưu để có thể khởi động khi ngoại tuyến.
+Một số chức năng hệ điều hành Android (DownloadManager, WorkManager và quyền notification nền) không thể giống 1:1 trên trình duyệt. Web giữ hành vi người dùng tương đương trong giới hạn PWA: lịch sử tải, tự đồng bộ khi đang mở/online, cache offline và Web Notification khi trình duyệt đã cấp quyền.
 
 ## Google Apps Script
 
-URL Web App hiện dùng được khai báo trong assets/config.js:
+URL API được khai báo tại `assets/config.js`:
 
-https://script.google.com/macros/s/AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND/exec
+`https://script.google.com/macros/s/AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND/exec`
 
-Ứng dụng nhận mảng JSON trực tiếp, các khóa data, items, result, rows, resources, hoặc các mảng nhóm news, soft, docs, firmware. Các trường tiếng Anh và một số tên trường tiếng Việt thông dụng đều được chuẩn hóa.
+Web hỗ trợ đầy đủ các trường chính của bản Android: `id`, `section`, `title`, `brand`, `model`, `version`, `size`, `description`, `viewUrl`, `downloadUrl`, `resolvedViewUrl`, `resolvedDownloadUrl`, `fileType`, `visible`, `sortOrder`, `createdAt`, `updatedAt`, `iconUrl`, `imageUrl`, `note`.
 
-Các trường chính gồm: id, section, title, brand, model, version, size, description, viewUrl, downloadUrl, resolvedDownloadUrl, fileType, visible, sortOrder, updatedAt, iconUrl.
+## Phát hành GitHub Pages
+
+Repository: `hlutools/hlu`, base path cố định `/hlu/`.
+
+1. Push lên `main`.
+2. GitHub Actions chạy Verify/Build và deploy Pages.
+3. Khi Service Worker cũ còn cache, tải lại trang hoặc đóng/mở lại PWA để nhận cache `150926.3`.
 
 ## Kiểm tra cục bộ
 
 Yêu cầu Node.js 22 trở lên:
 
-    npm test
-    npm run build
+```bash
+npm test
+npm run build
+```
 
-Thư mục dist là nội dung tĩnh dùng để phát hành. Mỗi workflow thành công cũng tạo artifact tải xuống có tên HLU_TOOLS_GITHUB_PAGES_HLU.zip.
+Mỗi workflow thành công tạo bản tĩnh trong `dist/` để deploy lên GitHub Pages.
