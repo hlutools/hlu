@@ -30,10 +30,10 @@ const redirect=fs.readFileSync('404.html','utf8');
 const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
 for(const ref of ['/hlu/manifest.webmanifest','/hlu/assets/app.css','/hlu/assets/app.js','/hlu/assets/config.js','/hlu/assets/android-v130926/home-header.png','/hlu/assets/android-v130926/drawer-header.png','/hlu/assets/android-v130926/card-soft.png','/hlu/assets/android-v130926/card-docs.png','/hlu/assets/android-v130926/card-firmware.png']){if(!index.includes(ref))throw new Error('Index thiếu: '+ref);}
 if(manifest.id!=='/hlu/'||manifest.start_url!=='/hlu/'||manifest.scope!=='/hlu/')throw new Error('Manifest sai base /hlu/');
-if(!sw.includes("const BASE='/hlu/';")||!sw.includes("hlu-tools-150926-3-v2"))throw new Error('Service worker chưa lên cache v2 cho image fix');
+if(!sw.includes("const BASE='/hlu/';")||!sw.includes("hlu-tools-150926-3-v3"))throw new Error('Service worker chưa lên cache v3 cho image fix');
 if(!config.includes("APP_VERSION:'150926.3'"))throw new Error('Config chưa là 150926.3');
 if(!config.includes('AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND'))throw new Error('Thiếu Apps Script URL');
-for(const marker of ['installHluImageRecovery','lh3.googleusercontent.com/d/','drive.google.com/uc?export=view&id=','image-load-failed']){if(!config.includes(marker))throw new Error('Thiếu image recovery: '+marker);}
+for(const marker of ['installHluImageRecovery','MutationObserver','lh3.googleusercontent.com/d/','drive.google.com/thumbnail?id=','drive.google.com/uc?export=view&id=','hluDrivePrepared']){if(!config.includes(marker))throw new Error('Thiếu image recovery v3: '+marker);}
 if(!redirect.includes("'/hlu/'"))throw new Error('404.html sai base path');
 const drawerOrder=['Trang chủ','Tin tức','Soft','Tài liệu','Firmware','Đã lưu','Download','Cài đặt'];
 let cursor=0;for(const label of drawerOrder){const pos=index.indexOf('<span>'+label+'</span>',cursor);if(pos<0)throw new Error('Drawer thiếu/sai thứ tự: '+label);cursor=pos+label.length;}
@@ -44,4 +44,4 @@ if(/markAllNotificationsRead[^}]*unreadNews/s.test(app))throw new Error('Đọc 
 if(!css.includes('.news-unread-banner')||!css.includes('.settings-group-title')||!css.includes('.content-card.news-new'))throw new Error('CSS chưa có giao diện 150926.3');
 new Function(app);new Function(config);new Function(sw);
 const disallowed=/\b(?:src|href)=["']\/(?!hlu\/)/g;for(const [file,source] of [['index.html',index],['404.html',redirect]]){const match=source.match(disallowed);if(match)throw new Error(file+' có đường dẫn ngoài /hlu/: '+match.join(', '));}
-console.log('HLU TOOLS Web/PWA 150926.3 verification passed with Drive image recovery: '+required.length+' required files, '+Object.keys(expectedPngDimensions).length+' exact PNG assets.');
+console.log('HLU TOOLS Web/PWA 150926.3 verification passed with proactive Drive image recovery v3: '+required.length+' required files, '+Object.keys(expectedPngDimensions).length+' exact PNG assets.');

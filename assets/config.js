@@ -7,28 +7,38 @@ window.HLU_CONFIG=Object.freeze({
   UNIT_NAME:'VNPT HOA LƯ'
 });
 
-// Web/PWA image recovery layer.
-// Android 150926.3 loads news thumbnails directly from iconUrl and falls back to an icon
-// when the remote image cannot be decoded. Browsers can fail on some Google Drive
-// thumbnail endpoints even when the same public file works in Android, so retry with
-// alternate public Drive/Googleusercontent endpoints before showing a visual fallback.
+// Web/PWA image recovery layer for Google Drive-hosted thumbnails.
+// The DATA sheet currently stores news thumbnails in iconUrl using Drive links such as
+// /uc?export=view&id=... . Browsers may fail on one public Drive endpoint while another
+// endpoint for the same public file still works. Rewrite to a browser-friendly endpoint
+// before loading, then retry through alternate endpoints on failure.
 (function installHluImageRecovery(){
   function extractDriveId(value){
     var raw=String(value||'');
     if(!raw)return '';
     var patterns=[
-      /\/thumbnail\?[^#]*[?&]?id=([^&#]+)/i,
-      /\/file\/d\/([^/?#]+)/i,
-      /[?&]id=([^&#]+)/i,
-      /googleusercontent\.com\/d\/([^/=&#?]+)/i
+      /\/file\/d\/([a-zA-Z0-9_-]+)/i,
+      /[?&]id=([a-zA-Z0-9_-]+)/i,
+      /googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/i
     ];
     for(var i=0;i<patterns.length;i+=1){
       var match=raw.match(patterns[i]);
-      if(match&&match[1]){
-        try{return decodeURIComponent(match[1]);}catch(error){return match[1];}
-      }
+      if(match&&match[1])return match[1];
     }
     return '';
+  }
+
+  function candidatesFor(id){
+    var safe=encodeURIComponent(id);
+    return [
+      'https://lh3.googleusercontent.com/d/'+safe+'=w1200',
+      'https://drive.google.com/thumbnail?id='+safe+'&sz=w1200',
+      'https://drive.google.com/uc?export=view&id='+safe
+    ];
+  }
+
+  function normalized(value){
+    try{return new URL(String(value||''),location.href).href;}catch(error){return String(value||'');}
   }
 
   function showImageFallback(img){
@@ -43,25 +53,63 @@ window.HLU_CONFIG=Object.freeze({
     if(parent.classList.contains('content-thumb')){
       parent.textContent='📰';
       parent.style.fontSize='24px';
+      return;
     }
+    if(img.classList.contains('detail-image')){
+      img.remove();
+    }
+  }
+
+  function applyPreferredEndpoint(img){
+    if(!img||img.tagName!=='IMG'||img.dataset.hluDrivePrepared==='1')return;
+    var source=img.getAttribute('src')||img.currentSrc||img.src||'';
+    var driveId=extractDriveId(source);
+    if(!driveId)return;
+    img.dataset.hluDrivePrepared='1';
+    img.dataset.hluDriveId=driveId;
+    img.dataset.hluImageRetry='0';
+    var preferred=candidatesFor(driveId)[0];
+    if(normalized(source)!==normalized(preferred))img.src=preferred;
+  }
+
+  function retryImage(img){
+    var driveId=img.dataset.hluDriveId||extractDriveId(img.currentSrc||img.src);
+    if(!driveId){showImageFallback(img);return;}
+    var candidates=candidatesFor(driveId);
+    var current=normalized(img.currentSrc||img.src);
+    var start=Number(img.dataset.hluImageRetry||0);
+    for(var i=start;i<candidates.length;i+=1){
+      img.dataset.hluImageRetry=String(i+1);
+      if(normalized(candidates[i])!==current){
+        img.style.display='';
+        img.src=candidates[i];
+        return;
+      }
+    }
+    showImageFallback(img);
   }
 
   window.addEventListener('error',function(event){
     var img=event.target;
     if(!img||img.tagName!=='IMG')return;
-    var driveId=extractDriveId(img.currentSrc||img.src);
-    var stage=Number(img.dataset.hluImageRetry||0);
-
-    if(driveId&&stage===0){
-      img.dataset.hluImageRetry='1';
-      img.src='https://lh3.googleusercontent.com/d/'+encodeURIComponent(driveId)+'=w1200';
-      return;
-    }
-    if(driveId&&stage===1){
-      img.dataset.hluImageRetry='2';
-      img.src='https://drive.google.com/uc?export=view&id='+encodeURIComponent(driveId);
-      return;
-    }
-    showImageFallback(img);
+    if(img.dataset.hluDriveId||extractDriveId(img.currentSrc||img.src))retryImage(img);
   },true);
+
+  function scan(root){
+    if(!root)return;
+    if(root.tagName==='IMG')applyPreferredEndpoint(root);
+    if(root.querySelectorAll){
+      var images=root.querySelectorAll('img');
+      for(var i=0;i<images.length;i+=1)applyPreferredEndpoint(images[i]);
+    }
+  }
+
+  scan(document);
+  if('MutationObserver' in window){
+    new MutationObserver(function(records){
+      for(var i=0;i<records.length;i+=1){
+        for(var j=0;j<records[i].addedNodes.length;j+=1)scan(records[i].addedNodes[j]);
+      }
+    }).observe(document.documentElement,{childList:true,subtree:true});
+  }
 })();
