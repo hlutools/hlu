@@ -2,114 +2,55 @@ window.HLU_CONFIG=Object.freeze({
   BASE_PATH:'/hlu/',
   API_URL:'https://script.google.com/macros/s/AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND/exec',
   API_TIMEOUT:20000,
-  APP_VERSION:'150926.3',
+  APP_VERSION:'220926.5',
   SOURCE_URL:'https://dhttnbh.blogspot.com/',
-  UNIT_NAME:'VNPT HOA LƯ'
+  UNIT_NAME:'VNPT HOA LƯ',
+  WEB_URL:'https://hlutools.github.io/hlu/',
+  CONTACT:Object.freeze({facebook:'https://facebook.com/vucuong.353',zalo:'https://zalo.me/0912862162',phone:'0912862162',developer:'Cường VNPT'}),
+  PUBLIC_IP_URL:'https://api64.ipify.org?format=json',
+  LIBRESPEED_SERVERS:Object.freeze([
+    {name:'Singapore • dsgroupmedia.com',baseUrl:'https://speedtest.dsgroupmedia.com',downloadPath:'backend/garbage.php',uploadPath:'backend/empty.php',pingPath:'backend/empty.php'},
+    {name:'Tokyo • A573',baseUrl:'https://librespeed.a573.net',downloadPath:'backend/garbage.php',uploadPath:'backend/empty.php',pingPath:'backend/empty.php'},
+    {name:'Nuremberg • LibreSpeed',baseUrl:'https://de4.backend.librespeed.org',downloadPath:'garbage.php',uploadPath:'empty.php',pingPath:'empty.php'}
+  ])
 });
 
-// Web/PWA image recovery layer for Google Drive-hosted thumbnails.
-// The DATA sheet currently stores news thumbnails in iconUrl using Drive links such as
-// /uc?export=view&id=... . Browsers may fail on one public Drive endpoint while another
-// endpoint for the same public file still works. Rewrite to a browser-friendly endpoint
-// before loading, then retry through alternate endpoints on failure.
+// Google Drive image recovery used by news/resources on Web/PWA.
 (function installHluImageRecovery(){
   function extractDriveId(value){
     var raw=String(value||'');
     if(!raw)return '';
-    var patterns=[
-      /\/file\/d\/([a-zA-Z0-9_-]+)/i,
-      /[?&]id=([a-zA-Z0-9_-]+)/i,
-      /googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/i
-    ];
-    for(var i=0;i<patterns.length;i+=1){
-      var match=raw.match(patterns[i]);
-      if(match&&match[1])return match[1];
-    }
+    var patterns=[/\/file\/d\/([^/?#]+)/i,/[?&]id=([^&#]+)/i,/googleusercontent\.com\/d\/([^/=&#?]+)/i];
+    for(var i=0;i<patterns.length;i+=1){var m=raw.match(patterns[i]);if(m&&m[1]){try{return decodeURIComponent(m[1]);}catch(_){return m[1];}}}
     return '';
   }
-
-  function candidatesFor(id){
-    var safe=encodeURIComponent(id);
+  function candidates(value){
+    var raw=String(value||'').trim();var id=extractDriveId(raw);if(!id)return raw?[raw]:[];
     return [
-      'https://lh3.googleusercontent.com/d/'+safe+'=w1200',
-      'https://drive.google.com/thumbnail?id='+safe+'&sz=w1200',
-      'https://drive.google.com/uc?export=view&id='+safe
+      'https://lh3.googleusercontent.com/d/'+encodeURIComponent(id)+'=w1200',
+      'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1200',
+      'https://drive.google.com/uc?export=view&id='+encodeURIComponent(id)
     ];
   }
-
-  function normalized(value){
-    try{return new URL(String(value||''),location.href).href;}catch(error){return String(value||'');}
+  function fallback(img){
+    img.hidden=true;var p=img.parentElement;if(!p)return;p.classList.add('image-load-failed');
+    if(p.classList.contains('home-news-thumb'))p.textContent='NEWS';
+    else if(p.classList.contains('content-thumb'))p.textContent='📰';
   }
-
-  function showImageFallback(img){
-    var parent=img.parentElement;
-    img.style.display='none';
-    if(!parent)return;
-    parent.classList.add('image-load-failed');
-    if(parent.classList.contains('home-news-thumb')){
-      parent.textContent='NEWS';
-      return;
-    }
-    if(parent.classList.contains('content-thumb')){
-      parent.textContent='📰';
-      parent.style.fontSize='24px';
-      return;
-    }
-    if(img.classList.contains('detail-image')){
-      img.remove();
-    }
+  function prepare(img){
+    if(!img||img.tagName!=='IMG'||img.dataset.hluPrepared==='1')return;
+    var list=candidates(img.getAttribute('src'));if(list.length<2)return;
+    img.dataset.hluPrepared='1';img.dataset.hluCandidates=JSON.stringify(list);img.dataset.hluCandidate='0';img.src=list[0];
   }
-
-  function applyPreferredEndpoint(img){
-    if(!img||img.tagName!=='IMG'||img.dataset.hluDrivePrepared==='1')return;
-    var source=img.getAttribute('src')||img.currentSrc||img.src||'';
-    var driveId=extractDriveId(source);
-    if(!driveId)return;
-    img.dataset.hluDrivePrepared='1';
-    img.dataset.hluDriveId=driveId;
-    img.dataset.hluImageRetry='0';
-    var preferred=candidatesFor(driveId)[0];
-    if(normalized(source)!==normalized(preferred))img.src=preferred;
-  }
-
-  function retryImage(img){
-    var driveId=img.dataset.hluDriveId||extractDriveId(img.currentSrc||img.src);
-    if(!driveId){showImageFallback(img);return;}
-    var candidates=candidatesFor(driveId);
-    var current=normalized(img.currentSrc||img.src);
-    var start=Number(img.dataset.hluImageRetry||0);
-    for(var i=start;i<candidates.length;i+=1){
-      img.dataset.hluImageRetry=String(i+1);
-      if(normalized(candidates[i])!==current){
-        img.style.display='';
-        img.src=candidates[i];
-        return;
-      }
-    }
-    showImageFallback(img);
-  }
-
   window.addEventListener('error',function(event){
-    var img=event.target;
-    if(!img||img.tagName!=='IMG')return;
-    if(img.dataset.hluDriveId||extractDriveId(img.currentSrc||img.src))retryImage(img);
+    var img=event.target;if(!img||img.tagName!=='IMG')return;
+    var list=[];try{list=JSON.parse(img.dataset.hluCandidates||'[]');}catch(_){}
+    if(!list.length){prepare(img);try{list=JSON.parse(img.dataset.hluCandidates||'[]');}catch(_){} }
+    var next=Number(img.dataset.hluCandidate||0)+1;
+    if(next<list.length){img.dataset.hluCandidate=String(next);img.hidden=false;img.src=list[next];return;}
+    fallback(img);
   },true);
-
-  function scan(root){
-    if(!root)return;
-    if(root.tagName==='IMG')applyPreferredEndpoint(root);
-    if(root.querySelectorAll){
-      var images=root.querySelectorAll('img');
-      for(var i=0;i<images.length;i+=1)applyPreferredEndpoint(images[i]);
-    }
-  }
-
-  scan(document);
-  if('MutationObserver' in window){
-    new MutationObserver(function(records){
-      for(var i=0;i<records.length;i+=1){
-        for(var j=0;j<records[i].addedNodes.length;j+=1)scan(records[i].addedNodes[j]);
-      }
-    }).observe(document.documentElement,{childList:true,subtree:true});
-  }
+  function scan(root){(root.querySelectorAll?root.querySelectorAll('img'):[]).forEach(prepare);if(root.tagName==='IMG')prepare(root);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){scan(document);});else scan(document);
+  new MutationObserver(function(mutations){mutations.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1)scan(n);});});}).observe(document.documentElement,{childList:true,subtree:true});
 })();
