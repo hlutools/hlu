@@ -1,0 +1,622 @@
+{
+  "schemaVersion": 3,
+  "bank": {
+    "version": "3.0",
+    "updatedAt": "2026-09-22",
+    "title": "HLU TOOLS E-Learning",
+    "description": "Ngân hàng câu hỏi E-Learning hỗ trợ multi_choice, true_false và thời lượng thi riêng theo chủ đề.",
+    "source": "local"
+  },
+  "topics": [
+    {
+      "id": "gpon",
+      "title": "An toàn thông tin Quý",
+      "subtitle": "",
+      "timeMinutes": 15,
+      "examQuestionCount": 20,
+      "description": "",
+      "practiceQuestionCounts": [
+        10,
+        20,
+        30
+      ],
+      "sortOrder": 10,
+      "enabled": true,
+      "durationMinutes": 15
+    },
+    {
+      "id": "wifi",
+      "title": "Đánh giá năng lực",
+      "subtitle": "",
+      "timeMinutes": 15,
+      "examQuestionCount": 20,
+      "description": "",
+      "practiceQuestionCounts": [
+        10,
+        20,
+        30
+      ],
+      "sortOrder": 20,
+      "enabled": true,
+      "durationMinutes": 15
+    },
+    {
+      "id": "ip",
+      "title": "Lắp đặt, cài đặt và xử lý sự cố dịch vụ FiberVNN - MyTV - IMS - Camera - và các dịch vụ mới (XGSPON, Wifi 6/7)",
+      "subtitle": "",
+      "timeMinutes": 15,
+      "examQuestionCount": 20,
+      "description": "",
+      "practiceQuestionCounts": [
+        10,
+        20,
+        30
+      ],
+      "sortOrder": 30,
+      "enabled": true,
+      "durationMinutes": 15
+    },
+    {
+      "id": "safety",
+      "title": "An toàn vệ sinh lao động",
+      "subtitle": "",
+      "timeMinutes": 10,
+      "examQuestionCount": 20,
+      "description": "",
+      "practiceQuestionCounts": [
+        10,
+        20,
+        30
+      ],
+      "sortOrder": 40,
+      "enabled": true,
+      "durationMinutes": 10
+    }
+  ],
+  "questions": [
+    {
+      "id": "GPON001",
+      "topicId": "gpon",
+      "question": "Thiết bị nào tại phía khách hàng thường kết cuối đường truyền quang GPON?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "ONT/ONU",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Switch Core",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Firewall",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Máy chủ DNS",
+          "correct": false
+        }
+      ],
+      "explanation": "ONT/ONU là thiết bị kết cuối mạng quang tại phía thuê bao.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "GPON"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "GPON002",
+      "topicId": "gpon",
+      "question": "ODN trong mạng PON là phần nào?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Mạng phân phối quang thụ động",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Máy chủ xác thực",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Mạng Wi-Fi nội bộ",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Hệ thống nguồn DC",
+          "correct": false
+        }
+      ],
+      "explanation": "ODN là Optical Distribution Network, mạng phân phối quang giữa OLT và thuê bao.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "GPON"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "GPON003",
+      "topicId": "gpon",
+      "question": "Bộ chia quang thụ động trong ODN thường có chức năng gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Chia công suất quang tới nhiều nhánh",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Cấp địa chỉ IP",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Mã hóa dữ liệu Wi-Fi",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Chuyển đổi AC sang DC",
+          "correct": false
+        }
+      ],
+      "explanation": "Splitter quang phân chia tín hiệu/công suất quang mà không cần nguồn điện.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "GPON"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "GPON004",
+      "topicId": "gpon",
+      "question": "OLT thường được đặt ở đâu trong kiến trúc GPON?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Phía nhà mạng",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Trong điện thoại khách hàng",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Bên trong splitter quang",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Trong bộ phát Wi-Fi của laptop",
+          "correct": false
+        }
+      ],
+      "explanation": "OLT là thiết bị đầu cuối đường quang phía nhà mạng.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "GPON"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "WIFI001",
+      "topicId": "wifi",
+      "question": "Băng tần Wi-Fi 5 GHz thường có ưu điểm nào so với 2,4 GHz?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Nhiều kênh khả dụng hơn và thường ít nhiễu hơn",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Luôn phủ xa hơn trong mọi môi trường",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Không bị vật cản suy hao",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Không cần mật khẩu bảo mật",
+          "correct": false
+        }
+      ],
+      "explanation": "5 GHz thường có nhiều kênh hơn và ít nhiễu, nhưng phạm vi xuyên vật cản có thể kém 2,4 GHz.",
+      "difficulty": "Trung bình",
+      "enabled": true,
+      "tags": [
+        "Wi-Fi"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "WIFI002",
+      "topicId": "wifi",
+      "question": "RSSI trong Wi-Fi thường dùng để biểu thị điều gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Mức tín hiệu thu",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Dung lượng ổ cứng",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Điện áp nguồn",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Địa chỉ MAC của router",
+          "correct": false
+        }
+      ],
+      "explanation": "RSSI là chỉ báo cường độ tín hiệu nhận được.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "Wi-Fi"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "WIFI003",
+      "topicId": "wifi",
+      "question": "Đặt Access Point gần vật kim loại lớn có thể gây ra hiện tượng gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Suy hao và phản xạ tín hiệu",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Tăng dung lượng RAM",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Tự tăng băng thông Internet",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Xóa mật khẩu Wi-Fi",
+          "correct": false
+        }
+      ],
+      "explanation": "Kim loại có thể che chắn và phản xạ sóng vô tuyến, làm chất lượng vùng phủ kém đi.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "Wi-Fi"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "WIFI004",
+      "topicId": "wifi",
+      "question": "Khi nhiều Wi-Fi lân cận dùng kênh chồng lấn, hậu quả thường thấy là gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Nhiễu tăng và hiệu năng giảm",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Tốc độ luôn tăng gấp đôi",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Thiết bị tự chuyển sang Ethernet",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Không ảnh hưởng gì",
+          "correct": false
+        }
+      ],
+      "explanation": "Kênh chồng lấn và môi trường đông thiết bị làm tăng tranh chấp và nhiễu.",
+      "difficulty": "Trung bình",
+      "enabled": true,
+      "tags": [
+        "Wi-Fi"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "IP001",
+      "topicId": "ip",
+      "question": "Router có chức năng chính nào trong mạng IP?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Chuyển tiếp gói tin giữa các mạng",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Khuếch đại quang thụ động",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Lưu điện cho thiết bị",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Tạo đầu nối quang",
+          "correct": false
+        }
+      ],
+      "explanation": "Router định tuyến và chuyển tiếp lưu lượng giữa các mạng IP.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "IP"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "IP002",
+      "topicId": "ip",
+      "question": "DNS được sử dụng chủ yếu để làm gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Phân giải tên miền thành địa chỉ IP",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Đo công suất quang",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Cấp nguồn PoE",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Mã hóa ổ cứng",
+          "correct": false
+        }
+      ],
+      "explanation": "DNS ánh xạ tên miền và các bản ghi liên quan tới địa chỉ/dịch vụ mạng.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "IP"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "IP003",
+      "topicId": "ip",
+      "question": "Địa chỉ IPv4 có độ dài bao nhiêu bit?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "32 bit",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "16 bit",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "64 bit",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "128 bit",
+          "correct": false
+        }
+      ],
+      "explanation": "IPv4 sử dụng địa chỉ 32 bit.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "IP"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "IP004",
+      "topicId": "ip",
+      "question": "DHCP thường cung cấp thông tin nào cho thiết bị đầu cuối?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Địa chỉ IP và các tham số mạng",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Công suất phát laser",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Mật khẩu tài khoản Google",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Dung lượng pin",
+          "correct": false
+        }
+      ],
+      "explanation": "DHCP cấp phát động địa chỉ IP và có thể cung cấp gateway, DNS và các tùy chọn khác.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "IP"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "SAFE001",
+      "topicId": "safety",
+      "question": "Trước khi thao tác với thiết bị điện, bước an toàn quan trọng là gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Đánh giá nguy cơ và cô lập nguồn khi cần",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Chạm thử vào dây dẫn",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Bỏ qua trang bị bảo hộ",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Làm việc khi tay ướt",
+          "correct": false
+        }
+      ],
+      "explanation": "Cần đánh giá nguy cơ, tuân thủ quy trình và cô lập nguồn phù hợp trước khi thao tác.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "An toàn"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "SAFE002",
+      "topicId": "safety",
+      "question": "Khi làm việc trên cao, biện pháp phù hợp là gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Sử dụng phương tiện và trang bị chống ngã theo quy định",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Đứng trên vật kê tạm không ổn định",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Bỏ dây an toàn để thao tác nhanh",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Làm việc một mình bất kể điều kiện",
+          "correct": false
+        }
+      ],
+      "explanation": "Làm việc trên cao cần tuân thủ quy trình và sử dụng trang bị/phương tiện chống ngã phù hợp.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "An toàn"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "SAFE003",
+      "topicId": "safety",
+      "question": "Khu vực làm việc có nguy cơ gây tai nạn nên được xử lý thế nào?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Cảnh báo, khoanh vùng và kiểm soát tiếp cận",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Không cần biển báo",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Để người không liên quan tự do đi vào",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Chỉ cảnh báo sau khi xảy ra sự cố",
+          "correct": false
+        }
+      ],
+      "explanation": "Biện pháp cảnh báo và kiểm soát khu vực giúp giảm nguy cơ cho người thực hiện và người xung quanh.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "An toàn"
+      ],
+      "questionType": "multi_choice"
+    },
+    {
+      "id": "SAFE004",
+      "topicId": "safety",
+      "question": "Khi phát hiện điều kiện làm việc không an toàn, lựa chọn phù hợp nhất là gì?",
+      "options": [
+        {
+          "id": "o1",
+          "text": "Dừng/không thực hiện công việc nguy hiểm và báo cáo theo quy trình",
+          "correct": true
+        },
+        {
+          "id": "o2",
+          "text": "Tiếp tục bằng mọi giá",
+          "correct": false
+        },
+        {
+          "id": "o3",
+          "text": "Che giấu nguy cơ",
+          "correct": false
+        },
+        {
+          "id": "o4",
+          "text": "Tự ý vô hiệu hóa thiết bị bảo vệ",
+          "correct": false
+        }
+      ],
+      "explanation": "Không nên tiếp tục công việc khi điều kiện không đảm bảo an toàn; cần xử lý/báo cáo theo quy trình.",
+      "difficulty": "Dễ",
+      "enabled": true,
+      "tags": [
+        "An toàn"
+      ],
+      "questionType": "multi_choice"
+    }
+  ]
+}

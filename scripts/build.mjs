@@ -1,14 +1,11 @@
 import fs from 'node:fs';
-
-const outputDirectory='dist';
-const excluded=new Set(['.git','.github','dist','node_modules','scripts','package.json']);
-
-fs.rmSync(outputDirectory,{recursive:true,force:true});
-fs.mkdirSync(outputDirectory,{recursive:true});
-
-for(const name of fs.readdirSync('.')){
-  if(excluded.has(name)) continue;
-  fs.cpSync(name,outputDirectory+'/'+name,{recursive:true});
+import path from 'node:path';
+const out='dist';
+fs.rmSync(out,{recursive:true,force:true});
+fs.mkdirSync(out,{recursive:true});
+for(const item of ['index.html','404.html','.nojekyll','manifest.webmanifest','sw.js','assets']){
+  if(!fs.existsSync(item)) throw new Error('Thiếu file build: '+item);
+  const dest=path.join(out,item);
+  fs.cpSync(item,dest,{recursive:true});
 }
-
-console.log('HLU TOOLS static site built in dist/');
+console.log('Built HLU TOOLS Web/PWA into dist/');
