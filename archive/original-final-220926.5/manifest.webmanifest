@@ -1,8 +1,8 @@
 {
   "id":"/hlu/",
-  "name":"HLU TOOLS Web App — Archived",
+  "name":"HLU TOOLS",
   "short_name":"HLU TOOLS",
-  "description":"HLU TOOLS Web App đã dừng phát triển và được lưu trữ từ 23/09/2026.",
+  "description":"HLU TOOLS - Kết nối - Chia sẻ - Hiệu Quả",
   "start_url":"/hlu/",
   "scope":"/hlu/",
   "display":"standalone",
@@ -13,5 +13,10 @@
   "icons":[
     {"src":"/hlu/assets/icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
     {"src":"/hlu/assets/icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ],
+  "shortcuts":[
+    {"name":"Network Toolkit","short_name":"Toolkit","url":"/hlu/?view=toolkit"},
+    {"name":"E-Learning","short_name":"E-Learning","url":"/hlu/?view=exam"},
+    {"name":"Tìm kiếm","short_name":"Tìm kiếm","url":"/hlu/?view=search"}
   ]
 }

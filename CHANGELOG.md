@@ -1,5 +1,13 @@
 # Changelog
 
+## Archived — 23/09/2026
+
+- Dừng phát triển HLU TOOLS Web App do giới hạn sandbox/bảo mật của Web và Safari/iOS khiến Network Toolkit và Tình trạng kết nối không thể tương đương Android.
+- Giữ nguyên source Web 220926.5 để tham khảo/khôi phục.
+- Chuyển GitHub Pages sang trang thông báo dự án đã dừng.
+- Lưu các file runtime gốc bị thay đổi trong `archive/original-final-220926.5/`.
+- HLU TOOLS Android tiếp tục phát triển độc lập và không bị ảnh hưởng.
+
 ## 220926.5-web-sync
 
 - Đồng bộ Web/PWA theo Android 220926.5.

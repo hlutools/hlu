@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#015acb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HLU TOOLS">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="HLU TOOLS - Kết nối - Chia sẻ - Hiệu Quả">
+  <link rel="manifest" href="/hlu/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/hlu/assets/icons/apple-touch-icon.png">
+  <link rel="icon" sizes="192x192" href="/hlu/assets/icons/icon-192.png">
+  <link rel="stylesheet" href="/hlu/assets/app.css">
+  <title>HLU TOOLS</title>
+</head>
+<body>
+<div id="app" class="app-shell">
+  <header id="appHeader" class="app-header">
+    <div id="headerArtwork" class="header-artwork hidden"><img id="headerImage" alt="HLU TOOLS"></div>
+    <div id="headerTech" class="header-tech hidden"><div class="tech-lines"></div><h1 id="headerTitle">HLU TOOLS</h1></div>
+    <button id="headerLeft" class="header-action left" type="button" aria-label="Mở menu"><span id="headerLeftIcon">☰</span></button>
+    <button id="headerRight" class="header-action right" type="button" aria-label="Thông báo"><span id="headerRightIcon">♢</span><i id="headerBadge" class="header-badge hidden">0</i></button>
+  </header>
+
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <img src="/hlu/assets/android-v220926/drawer_header_mockup_210926.webp" alt="HLU TOOLS">
+      <div class="drawer-service"><i id="drawerStatusDot"></i><span id="drawerStatusText">Đang chờ kết nối</span></div>
+    </div>
+    <nav id="drawerNav" class="drawer-nav">
+      <div class="drawer-group">TỔNG QUAN</div>
+      <button data-route="home"><span>⌂</span><b>Trang chủ</b></button>
+      <button data-route="news"><span>▤</span><b>Tin tức & cập nhật</b><i id="drawerNewsBadge" class="menu-badge hidden">0</i></button>
+      <hr>
+      <div class="drawer-group">TÀI NGUYÊN</div>
+      <button data-section="soft"><span>▣</span><b>Soft</b></button>
+      <button data-section="docs"><span>▧</span><b>Tài liệu</b></button>
+      <button data-section="firmware"><span>▥</span><b>Firmware</b></button>
+      <button data-route="exam"><span>♟</span><b>E-Learning</b></button>
+      <hr>
+      <div class="drawer-group">CÔNG CỤ</div>
+      <button data-route="toolkit" class="accent"><span>⚒</span><b>Network Toolkit</b></button>
+      <button data-route="search"><span>⌕</span><b>Tìm kiếm</b></button>
+      <button data-route="saved"><span>♧</span><b>Đã lưu</b></button>
+      <button data-route="downloads"><span>⇩</span><b>Download</b></button>
+      <hr>
+      <div class="drawer-group">HỆ THỐNG</div>
+      <button data-route="settings"><span>⚙</span><b>Cài đặt</b></button>
+      <button data-route="about"><span>ⓘ</span><b>Giới thiệu</b></button>
+    </nav>
+    <footer class="drawer-footer">
+      <div class="cityline"></div>
+      <div>Đồng hành cùng VNPT<br>vì một kết nối tốt đẹp hơn</div>
+      <small id="drawerVersion">Version 220926.5</small>
+      <p>Developed by <a id="developerLink" href="#">Cường VNPT</a></p>
+    </footer>
+  </aside>
+  <button id="scrim" class="scrim hidden" type="button" aria-label="Đóng menu"></button>
+
+  <main id="viewRoot" class="view-root" aria-live="polite"></main>
+
+  <nav id="bottomNav" class="bottom-nav" aria-label="Điều hướng chính">
+    <button data-route="home"><span>⌂</span><small>Trang chủ</small><i></i></button>
+    <button data-route="search"><span>⌕</span><small>Tìm kiếm</small><i></i></button>
+    <button data-route="toolkit"><span>⚒</span><small>Toolkit</small><i></i></button>
+    <button data-route="saved"><span>♧</span><small>Đã lưu</small><i></i></button>
+    <button data-route="downloads"><span>⇩</span><small>Download</small><i></i></button>
+  </nav>
+
+  <div id="toast" class="toast" role="status"></div>
+</div>
+<script src="/hlu/assets/config.js"></script>
+<script src="/hlu/assets/exam.js"></script>
+<script src="/hlu/assets/toolkit.js"></script>
+<script src="/hlu/assets/app.js"></script>
+</body>
+</html>
