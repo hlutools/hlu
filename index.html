@@ -5,75 +5,61 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#015acb">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="HLU TOOLS">
-  <meta name="format-detection" content="telephone=no">
-  <meta name="description" content="HLU TOOLS - Kết nối - Chia sẻ - Hiệu Quả">
+  <meta name="description" content="HLU TOOLS Web App đã dừng phát triển và được lưu trữ từ 23/09/2026.">
   <link rel="manifest" href="/hlu/manifest.webmanifest">
   <link rel="apple-touch-icon" href="/hlu/assets/icons/apple-touch-icon.png">
   <link rel="icon" sizes="192x192" href="/hlu/assets/icons/icon-192.png">
-  <link rel="stylesheet" href="/hlu/assets/app.css">
-  <title>HLU TOOLS</title>
+  <title>HLU TOOLS Web App — Archived</title>
+  <style>
+    :root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;background:#f4f8fc;line-height:1.55}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(180deg,#eaf5ff 0,#f7fbff 44%,#fff 100%)}
+    .top{height:72px;padding:max(14px,env(safe-area-inset-top)) 20px 12px;background:#015acb;color:#fff;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(0,58,130,.16)}
+    .top img{width:42px;height:42px;border-radius:10px;background:#fff}.top div{min-width:0}.top b{display:block;font-size:18px}.top small{opacity:.88}
+    main{width:min(92vw,720px);margin:34px auto;padding-bottom:40px}.card{background:#fff;border:1px solid #dce8f3;border-radius:22px;padding:24px;box-shadow:0 10px 30px rgba(20,62,110,.08)}
+    .badge{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;background:#fff1dd;color:#875500;font-weight:800;font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:#f0a000}
+    h1{margin:14px 0 8px;font-size:clamp(24px,7vw,34px);line-height:1.15;color:#064b9c}p{margin:9px 0;color:#53657b}strong{color:#243246}
+    .reason{margin:20px 0;padding:15px 16px;border-radius:16px;background:#f2f7fd;border-left:4px solid #1680e8}.reason b{display:block;margin-bottom:5px;color:#015acb}
+    .android{margin-top:18px;padding:17px;border-radius:16px;background:#e9f7ee;border:1px solid #c8ead4}.android b{color:#157744}.android p{margin:5px 0 0;color:#42634f}
+    .meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.meta div{padding:12px;border-radius:14px;background:#f7fafc}.meta small{display:block;color:#78879a}.meta b{font-size:13px}
+    .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.links a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 15px;border-radius:12px;text-decoration:none;font-weight:700;font-size:13px}.primary{background:#015acb;color:#fff}.secondary{background:#edf4fc;color:#015acb}
+    footer{text-align:center;margin-top:18px;color:#7c8b9d;font-size:12px}@media(max-width:520px){main{margin-top:22px}.card{padding:19px}.meta{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-<div id="app" class="app-shell">
-  <header id="appHeader" class="app-header">
-    <div id="headerArtwork" class="header-artwork hidden"><img id="headerImage" alt="HLU TOOLS"></div>
-    <div id="headerTech" class="header-tech hidden"><div class="tech-lines"></div><h1 id="headerTitle">HLU TOOLS</h1></div>
-    <button id="headerLeft" class="header-action left" type="button" aria-label="Mở menu"><span id="headerLeftIcon">☰</span></button>
-    <button id="headerRight" class="header-action right" type="button" aria-label="Thông báo"><span id="headerRightIcon">♢</span><i id="headerBadge" class="header-badge hidden">0</i></button>
+  <header class="top">
+    <img src="/hlu/assets/icons/icon-192.png" alt="HLU TOOLS">
+    <div><b>HLU TOOLS</b><small>Kết nối · Chia sẻ · Hiệu Quả</small></div>
   </header>
-
-  <aside id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-head">
-      <img src="/hlu/assets/android-v220926/drawer_header_mockup_210926.webp" alt="HLU TOOLS">
-      <div class="drawer-service"><i id="drawerStatusDot"></i><span id="drawerStatusText">Đang chờ kết nối</span></div>
-    </div>
-    <nav id="drawerNav" class="drawer-nav">
-      <div class="drawer-group">TỔNG QUAN</div>
-      <button data-route="home"><span>⌂</span><b>Trang chủ</b></button>
-      <button data-route="news"><span>▤</span><b>Tin tức & cập nhật</b><i id="drawerNewsBadge" class="menu-badge hidden">0</i></button>
-      <hr>
-      <div class="drawer-group">TÀI NGUYÊN</div>
-      <button data-section="soft"><span>▣</span><b>Soft</b></button>
-      <button data-section="docs"><span>▧</span><b>Tài liệu</b></button>
-      <button data-section="firmware"><span>▥</span><b>Firmware</b></button>
-      <button data-route="exam"><span>♟</span><b>E-Learning</b></button>
-      <hr>
-      <div class="drawer-group">CÔNG CỤ</div>
-      <button data-route="toolkit" class="accent"><span>⚒</span><b>Network Toolkit</b></button>
-      <button data-route="search"><span>⌕</span><b>Tìm kiếm</b></button>
-      <button data-route="saved"><span>♧</span><b>Đã lưu</b></button>
-      <button data-route="downloads"><span>⇩</span><b>Download</b></button>
-      <hr>
-      <div class="drawer-group">HỆ THỐNG</div>
-      <button data-route="settings"><span>⚙</span><b>Cài đặt</b></button>
-      <button data-route="about"><span>ⓘ</span><b>Giới thiệu</b></button>
-    </nav>
-    <footer class="drawer-footer">
-      <div class="cityline"></div>
-      <div>Đồng hành cùng VNPT<br>vì một kết nối tốt đẹp hơn</div>
-      <small id="drawerVersion">Version 220926.5</small>
-      <p>Developed by <a id="developerLink" href="#">Cường VNPT</a></p>
-    </footer>
-  </aside>
-  <button id="scrim" class="scrim hidden" type="button" aria-label="Đóng menu"></button>
-
-  <main id="viewRoot" class="view-root" aria-live="polite"></main>
-
-  <nav id="bottomNav" class="bottom-nav" aria-label="Điều hướng chính">
-    <button data-route="home"><span>⌂</span><small>Trang chủ</small><i></i></button>
-    <button data-route="search"><span>⌕</span><small>Tìm kiếm</small><i></i></button>
-    <button data-route="toolkit"><span>⚒</span><small>Toolkit</small><i></i></button>
-    <button data-route="saved"><span>♧</span><small>Đã lưu</small><i></i></button>
-    <button data-route="downloads"><span>⇩</span><small>Download</small><i></i></button>
-  </nav>
-
-  <div id="toast" class="toast" role="status"></div>
-</div>
-<script src="/hlu/assets/config.js"></script>
-<script src="/hlu/assets/exam.js"></script>
-<script src="/hlu/assets/toolkit.js"></script>
-<script src="/hlu/assets/app.js"></script>
+  <main>
+    <section class="card" aria-labelledby="archive-title">
+      <span class="badge"><i class="dot"></i>DỰ ÁN WEB ĐÃ DỪNG / ARCHIVED</span>
+      <h1 id="archive-title">HLU TOOLS Web App đã dừng phát triển</h1>
+      <p>Từ ngày <strong>23/09/2026</strong>, phiên bản Web/PWA được lưu trữ và không tiếp tục phát triển tính năng.</p>
+      <div class="reason">
+        <b>Lý do chính</b>
+        Safari/iOS và sandbox của trình duyệt giới hạn nhiều API mạng cần cho Network Toolkit và Tình trạng kết nối, nên Web App không thể cung cấp đầy đủ và chính xác các chức năng kỹ thuật như phiên bản Android.
+      </div>
+      <div class="android">
+        <b>Khuyến nghị sử dụng HLU TOOLS Android</b>
+        <p>Phiên bản Android tiếp tục được phát triển bình thường và là nền tảng được khuyến nghị cho các công cụ mạng.</p>
+      </div>
+      <div class="meta">
+        <div><small>Phiên bản Web cuối</small><b>220926.5</b></div>
+        <div><small>Trạng thái source</small><b>Đã lưu trữ, không xóa</b></div>
+      </div>
+      <div class="links">
+        <a class="primary" href="https://github.com/hlutools/hlu" rel="noopener">Xem source lưu trữ</a>
+        <a class="secondary" href="https://github.com/hlutools/hlu/blob/main/ARCHIVE_NOTICE.md" rel="noopener">Lý do & hướng khôi phục</a>
+      </div>
+    </section>
+    <footer>HLU TOOLS Web App · Archived 23/09/2026 · Developed by Cường VNPT</footer>
+  </main>
+  <script>
+    if('serviceWorker' in navigator){
+      window.addEventListener('load',()=>navigator.serviceWorker.register('/hlu/sw.js').then(r=>r.update()).catch(()=>{}));
+    }
+  </script>
 </body>
 </html>

@@ -29,11 +29,11 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify archived Web/PWA snapshot
+      - name: Verify Web/PWA 220926.5 source and assets
         run: npm test
-      - name: Build archived GitHub Pages notice
+      - name: Build static GitHub Pages site
         run: npm run build
-      - name: Upload archived source package
+      - name: Upload downloadable source package
         uses: actions/upload-artifact@v7
         with:
           name: HLU_TOOLS_GITHUB_PAGES_HLU

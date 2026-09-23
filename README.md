@@ -1,3 +1,5 @@
+> ⚠️ **DỰ ÁN ĐÃ DỪNG PHÁT TRIỂN (ARCHIVED)** — Xem [`ARCHIVE_NOTICE.md`](ARCHIVE_NOTICE.md) để biết lý do và hướng khôi phục.
+
 # HLU TOOLS – Web/PWA
 
 Web App/PWA triển khai tại **https://hlutools.github.io/hlu/**, đồng bộ theo source Android **220926.5**.
