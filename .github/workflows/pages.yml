@@ -20,7 +20,7 @@ concurrency:
 
 env:
   PRODUCTION_URL: https://hlutools.github.io/hlu/
-  ROLLBACK_REF: backup/web-2209265-pre-archive
+  ROLLBACK_REF: backup/web-280926-before-fix-20260928
 
 jobs:
   build:
@@ -99,7 +99,7 @@ jobs:
 
   rollback:
     if: ${{ always() && github.event_name != 'pull_request' && needs.smoke.result == 'failure' }}
-    name: Roll back to Web 220926.5 backup
+    name: Roll back to Web 280926 backup
     needs: smoke
     runs-on: ubuntu-latest
     environment:
