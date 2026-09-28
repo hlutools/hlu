@@ -1,4 +1,4 @@
-const CACHE_NAME='hlu-tools-280926-1-v1';
+const CACHE_NAME='hlu-tools-280926-2-v1';
 const BASE='/hlu/';
 const APP_SHELL=[
   BASE,BASE+'index.html',BASE+'manifest.webmanifest',BASE+'assets/app.css',BASE+'assets/app.js',BASE+'assets/config.js',BASE+'assets/exam.js',
@@ -7,7 +7,7 @@ const APP_SHELL=[
   BASE+'assets/android-v280926/header_260926_thong_bao.webp',BASE+'assets/android-v280926/header_260926_tai_nguyen.webp',BASE+'assets/android-v280926/header_260926_cai_dat.webp',BASE+'assets/android-v280926/header_260926_gioi_thieu.webp',
   BASE+'assets/android-v280926/header_260926_tin_tuc.webp',BASE+'assets/android-v280926/header_260926_soft.webp',BASE+'assets/android-v280926/header_260926_tai_lieu.webp',BASE+'assets/android-v280926/header_260926_firmware.webp',BASE+'assets/android-v280926/header_260926_e_learning.webp',
   BASE+'assets/android-v280926/drawer_header_mockup_210926.webp',BASE+'assets/android-v280926/home_card_soft_bg_210926.webp',BASE+'assets/android-v280926/home_card_docs_bg_210926.webp',BASE+'assets/android-v280926/home_card_firmware_bg_210926.webp',BASE+'assets/android-v280926/home_card_learning_bg_210926.webp',
-  BASE+'assets/data/exam_bank.json',BASE+'assets/data/news_fallback.json'
+  BASE+'assets/data/exam_bank.json',BASE+'assets/data/news_fallback.json',BASE+'assets/data/release_history.json',BASE+'assets/android-v280926/ic_zalo.png'
 ];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('hlu-tools-')&&key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});

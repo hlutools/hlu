@@ -1,3 +1,11 @@
+# 280926.2
+
+- Đồng bộ Bottom Navigation icon theo Android.
+- Thêm Download action cho card Tài nguyên.
+- Đồng bộ Cài đặt > Giới thiệu và icon liên hệ theo Android.
+- Sửa icon Timer trong Thi thử E-Learning.
+- Tin tức hiển thị ngay từ same-origin fallback và merge ổn định với API/cache.
+
 # Changelog
 
 ## 280926.1-web-fix

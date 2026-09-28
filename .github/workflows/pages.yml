@@ -1,4 +1,4 @@
-name: Build and deploy HLU TOOLS Web 280926.1
+name: Build and deploy HLU TOOLS Web 280926.2
 
 on:
   push:
@@ -20,11 +20,11 @@ concurrency:
 
 env:
   PRODUCTION_URL: https://hlutools.github.io/hlu/
-  ROLLBACK_REF: backup/web-280926-before-fix-20260928
+  ROLLBACK_REF: backup/web-2809261-before-fix-20260928
 
 jobs:
   build:
-    name: Verify and package Web 280926.1
+    name: Verify and package Web 280926.2
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -33,14 +33,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify Web 280926.1 source
+      - name: Verify Web 280926.2 source
         run: npm test
       - name: Build static GitHub Pages site
         run: HLU_SYNC_NEWS=1 npm run build
       - name: Upload downloadable source package
         uses: actions/upload-artifact@v7
         with:
-          name: HLU_TOOLS_WEB_280926_SOURCE
+          name: HLU_TOOLS_WEB_280926_2_SOURCE
           path: |
             .
             !.git/**
@@ -75,7 +75,7 @@ jobs:
 
   smoke:
     if: github.event_name != 'pull_request'
-    name: Smoke test production 280926.1
+    name: Smoke test production 280926.2
     needs: deploy
     runs-on: ubuntu-latest
     steps:
@@ -86,15 +86,17 @@ jobs:
           URL="${PRODUCTION_URL}?release=${GITHUB_SHA}"
           for n in 1 2 3 4 5 6; do
             if curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$URL" -o /tmp/hlu-index.html; then
-              if grep -q 'data-web-version="280926.1"' /tmp/hlu-index.html \
-                && ! grep -Eq 'view=toolkit|assets/toolkit\.js|data-route="toolkit"' /tmp/hlu-index.html; then
-                echo "Production 280926.1 smoke test passed."
+              if grep -q 'data-web-version="280926.2"' /tmp/hlu-index.html \
+                && ! grep -Eq 'view=toolkit|assets/toolkit\.js|data-route="toolkit"' /tmp/hlu-index.html \
+                && curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "${PRODUCTION_URL}assets/data/news_fallback.json?release=${GITHUB_SHA}" -o /tmp/hlu-news.json \
+                && grep -q '"section": "news"' /tmp/hlu-news.json; then
+                echo "Production 280926.2 smoke test passed with news fallback."
                 exit 0
               fi
             fi
             sleep 10
           done
-          echo "Production 280926.1 smoke test failed." >&2
+          echo "Production 280926.2 smoke test failed." >&2
           exit 1
 
   rollback:
