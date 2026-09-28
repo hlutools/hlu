@@ -1,10 +1,10 @@
 # HLU TOOLS – Web/PWA
 
-**Phiên bản Web: 280926.3** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
+**Phiên bản Web: 280926.4** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
 
 Production: **https://hlutools.github.io/hlu/**
 
-## 280926.3 — sửa Tin tức, phân loại và action card
+## 280926.4 — sửa Tin tức, phân loại và action card
 
 - Sửa lỗi JavaScript `Array.map(normalize)`: callback của `map` truyền mảng nguồn vào tham số thứ 3, làm tham số `forced` bị hiểu nhầm là category và khiến `soft`, `firmware`, `news` rơi về `docs`. Tất cả luồng normalize API/cache/fallback nay truyền rõ `(row, index)` và `normalize()` chỉ chấp nhận forced section khi là chuỗi.
 - Nhờ sửa normalize, Tin tức từ API/snapshot được giữ đúng `section=news` và hiển thị ở Trang chủ ngay từ lần render đầu; Soft/Firmware trở về đúng khối.
@@ -73,9 +73,9 @@ npm run build
 Xem `BACKUP_ROLLBACK.md`.
 
 Các mốc backup trước khi thay Web 280926:
-- `backup/web-2809262-before-fix-20260928`: Web 280926.2 ngay trước bản sửa 280926.3.
+- `backup/web-2809262-before-fix-20260928`: Web 280926.2 ngay trước bản sửa 280926.4.
 - `backup/web-2809261-before-fix-20260928`: Web 280926.1 ngay trước bản sửa 280926.2.
 - `backup/web-before-280926-20260928`: trạng thái `main` ngay trước đợt dựng này.
 - `backup/web-2209265-pre-archive`: Web App 220926.5 đầy đủ trước khi từng chuyển sang trang archive.
 
-Workflow deploy chỉ chạy Pages sau khi Verify/Build pass. Sau deploy có smoke test; nếu smoke test thất bại, workflow tự deploy lại backup `backup/web-2809262-before-fix-20260928` cho release 280926.3.
+Workflow deploy chỉ chạy Pages sau khi Verify/Build pass. Sau deploy có smoke test; nếu smoke test thất bại, workflow tự deploy lại backup `backup/web-2809262-before-fix-20260928` cho release 280926.4.

@@ -25,9 +25,9 @@ const manifestRaw=fs.readFileSync('manifest.webmanifest','utf8');
 const manifest=JSON.parse(manifestRaw);
 
 if(manifest.id!=='/hlu/'||manifest.start_url!=='/hlu/'||manifest.scope!=='/hlu/') throw new Error('Manifest sai base /hlu/');
-if(!config.includes("APP_VERSION:'280926.3'")) throw new Error('Sai version Web 280926');
-if(!sw.includes("hlu-tools-280926-3-v1")) throw new Error('Service Worker sai cache 280926');
-if(!index.includes('data-web-version="280926.3"')) throw new Error('index thiếu marker version 280926');
+if(!config.includes("APP_VERSION:'280926.4'")) throw new Error('Sai version Web 280926');
+if(!sw.includes("hlu-tools-280926-4-v1")) throw new Error('Service Worker sai cache 280926');
+if(!index.includes('data-web-version="280926.4"')) throw new Error('index thiếu marker version 280926');
 
 for(const label of ['Trang chủ','Tin tức','Soft','Tài liệu','Firmware','E-Learning','Tìm kiếm','Đã lưu','Download','Cài đặt']){
   if(!index.includes(label)) throw new Error('Drawer thiếu '+label);
@@ -53,15 +53,15 @@ for(const marker of ['SpeechRecognition','webkitSpeechRecognition','popular','ta
 }
 if(!css.includes('.resource-grid')||!css.includes('.exam-wrap')||!css.includes('.popular-grid')||!css.includes('.bottom-nav-four')) throw new Error('CSS thiếu UI 280926');
 
-for(const marker of ['ICON_PATHS','notifications','settingsGroupRow','SETTINGS_GROUPS','loadNewsFallback','news_fallback.json']){if(!(app+index+sw).includes(marker))throw new Error('Thiếu fix 280926.3: '+marker);}
+for(const marker of ['ICON_PATHS','notifications','settingsGroupRow','SETTINGS_GROUPS','loadNewsFallback','news_fallback.json']){if(!(app+index+sw).includes(marker))throw new Error('Thiếu fix 280926.4: '+marker);}
 for(const stale of ['Đồng hành cùng VNPT','vì một kết nối tốt đẹp hơn','drawerVersion']){if((index+app).includes(stale))throw new Error('Drawer còn text cũ: '+stale);}
 const fallback=JSON.parse(fs.readFileSync('assets/data/news_fallback.json','utf8'));const fallbackNews=Array.isArray(fallback.data)?fallback.data.filter(x=>x.section==='news'&&x.visible!==false&&x.id&&x.title):[];if(fallbackNews.length<3)throw new Error('news_fallback không đủ dữ liệu Tin tức');
 
 for(const icon of ['data-ui-icon="home"','data-ui-icon="search"','data-ui-icon="bookmark"','data-ui-icon="download"']){if(!index.includes(icon))throw new Error('Bottom Navigation sai icon Android: '+icon);}
-for(const marker of ['data-download-item','card-actions','downloadItem(','mock-timer-icon','data-release-history','ic_zalo.png','Nhật ký phiên bản','settings-check-button']){if(!(app+index+css).includes(marker))throw new Error('Thiếu parity 280926.3: '+marker);}
+for(const marker of ['data-download-item','card-actions','downloadItem(','mock-timer-icon','data-release-history','ic_zalo.png','Nhật ký phiên bản','settings-check-button']){if(!(app+index+css).includes(marker))throw new Error('Thiếu parity 280926.4: '+marker);}
 if(!app.includes("mergeFallbackNews(initial,await loadNewsFallback())"))throw new Error('Tin tức chưa bootstrap fallback trước render');
 
-// Regression guard for 280926.3: never pass normalize directly to Array.map because map's third
+// Regression guard for 280926.4: never pass normalize directly to Array.map because map's third
 // argument is the source array and would be mistaken for the optional forced section.
 if(app.includes('map(normalize)')) throw new Error('Regression category: không được dùng map(normalize) trực tiếp');
 for(const marker of [
@@ -71,8 +71,25 @@ for(const marker of [
   'cache.map((row,i)=>normalize(row,i))',
   "rows.map(x=>card(x,{download:true}))",
   'canDownload=!!safeUrl(downloadRequest(item))'
-]){if(!app.includes(marker))throw new Error('Thiếu fix 280926.3 news/category/download: '+marker);}
-const releaseHistory=JSON.parse(fs.readFileSync('assets/data/release_history.json','utf8'));if(!Array.isArray(releaseHistory)||!releaseHistory.some(x=>x.version==='280926.3'))throw new Error('Thiếu release history 280926.3');
+]){if(!app.includes(marker))throw new Error('Thiếu fix 280926.4 news/category/download: '+marker);}
+const releaseHistory=JSON.parse(fs.readFileSync('assets/data/release_history.json','utf8'));
+const androidReleaseVersions=['280926','270926.4','270926.3','270926.2','270926.1','270926','260926.5','260926.4','260926.3','260926.2','260926.1','260926','250926.4','250926.3','250926.2','250926.1','250926','240926','220926.5'];
+if(JSON.stringify(releaseHistory.map(x=>x.version))!==JSON.stringify(androidReleaseVersions)) throw new Error('Nhật ký phiên bản chưa khớp Android 280926');
+
+
+const aboutStart=app.indexOf("else if(group==='about')");
+const aboutEnd=app.indexOf('ROOT.innerHTML=`<div class="settings settings-android',aboutStart);
+const aboutBlock=app.slice(aboutStart,aboutEnd);
+let aboutCursor=0;
+for(const label of ['Giới thiệu HLU TOOLS','Kiểm tra cập nhật','Nhật ký phiên bản','Facebook','Zalo','Điện thoại','Góp ý cho nhà phát triển','VNPT HOA LƯ']){
+  const pos=aboutBlock.indexOf(label,aboutCursor);if(pos<0)throw new Error('Giới thiệu thiếu/sai thứ tự: '+label);aboutCursor=pos+label.length;
+}
+for(const marker of ["ANDROID_SOURCE_VERSION:'280926'",'settings-about','settings-app-tagline','settings-app-version','settings-check-button','release-title','release-actions','about-copy-last']){
+  if(!(app+config+css).includes(marker))throw new Error('Thiếu parity Giới thiệu Android: '+marker);
+}
+if(aboutBlock.includes('Giấy phép mã nguồn'))throw new Error('Web có mục Giấy phép mã nguồn nhưng Android 280926 không có');
+if(app.includes('data-close-release>×'))throw new Error('Nhật ký Web còn nút × không có trên Android');
+if(!app.includes('<button class="settings-check-button" data-sync type="button">Kiểm tra</button>'))throw new Error('Nút Kiểm tra chưa đúng cấu trúc trailing action Android');
 
 new Function(app);new Function(exam);new Function(config);new Function(sw);
 const bank=JSON.parse(fs.readFileSync('assets/data/exam_bank.json','utf8'));
@@ -85,4 +102,4 @@ for(const topic of bank.topics){const d=Number(topic.durationMinutes??topic.time
 const headers=fs.readdirSync('assets/android-v280926').filter(x=>x.startsWith('header_260926_')&&x.endsWith('.webp'));
 if(headers.length!==13) throw new Error('Số header 280926 không đúng: '+headers.length);
 
-console.log(`HLU TOOLS Web/PWA 280926.3 verification passed: ${must.length} required files, ${headers.length} dedicated headers, ${bank.topics.length} exam topics, ${bank.questions.length} local questions, Toolkit Web removed.`);
+console.log(`HLU TOOLS Web/PWA 280926.4 verification passed: ${must.length} required files, ${headers.length} dedicated headers, ${bank.topics.length} exam topics, ${bank.questions.length} local questions, Toolkit Web removed.`);

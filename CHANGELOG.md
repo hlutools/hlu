@@ -1,4 +1,14 @@
-# 280926.3
+# Changelog
+
+## 280926.4-web-about-parity
+
+- Đồng bộ Cài đặt > Giới thiệu với Android 280926: text, thứ tự, icon, kích thước, typography và spacing.
+- Sửa hành vi `Kiểm tra cập nhật` để chỉ nút trailing thực hiện action như Android.
+- Đồng bộ Nhật ký phiên bản với AlertDialog + dữ liệu `release_history.json` Android 280926.
+- Đồng bộ màn con Giới thiệu HLU TOOLS theo `HluAboutShell`.
+- Không thay đổi các module ngoài phạm vi Cài đặt/Giới thiệu.
+
+# 280926.4
 
 - Sửa normalize category: không còn truyền nhầm tham số thứ 3 của `Array.map` vào `forced section`.
 - Khôi phục đúng Tin tức trên Trang chủ và phân loại Soft/Firmware/Tài liệu.
