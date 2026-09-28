@@ -2,17 +2,12 @@ window.HLU_CONFIG=Object.freeze({
   BASE_PATH:'/hlu/',
   API_URL:'https://script.google.com/macros/s/AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND/exec',
   API_TIMEOUT:20000,
-  APP_VERSION:'220926.5',
+  APP_VERSION:'280926',
   SOURCE_URL:'https://dhttnbh.blogspot.com/',
   UNIT_NAME:'VNPT HOA LƯ',
   WEB_URL:'https://hlutools.github.io/hlu/',
   CONTACT:Object.freeze({facebook:'https://facebook.com/vucuong.353',zalo:'https://zalo.me/0912862162',phone:'0912862162',developer:'Cường VNPT'}),
-  PUBLIC_IP_URL:'https://api64.ipify.org?format=json',
-  LIBRESPEED_SERVERS:Object.freeze([
-    {name:'Singapore • dsgroupmedia.com',baseUrl:'https://speedtest.dsgroupmedia.com',downloadPath:'backend/garbage.php',uploadPath:'backend/empty.php',pingPath:'backend/empty.php'},
-    {name:'Tokyo • A573',baseUrl:'https://librespeed.a573.net',downloadPath:'backend/garbage.php',uploadPath:'backend/empty.php',pingPath:'backend/empty.php'},
-    {name:'Nuremberg • LibreSpeed',baseUrl:'https://de4.backend.librespeed.org',downloadPath:'garbage.php',uploadPath:'empty.php',pingPath:'empty.php'}
-  ])
+  PUBLIC_IP_URL:'https://api64.ipify.org?format=json'
 });
 
 // Google Drive image recovery used by news/resources on Web/PWA.
