@@ -1,3 +1,10 @@
+# 280926.3
+
+- Sửa normalize category: không còn truyền nhầm tham số thứ 3 của `Array.map` vào `forced section`.
+- Khôi phục đúng Tin tức trên Trang chủ và phân loại Soft/Firmware/Tài liệu.
+- Thêm cụm Yêu thích + Download xếp dọc cho card trong các màn Soft/Tài liệu/Firmware; Download chỉ bật khi có link tải thật.
+- Không thay đổi các module ngoài phạm vi.
+
 # 280926.2
 
 - Đồng bộ Bottom Navigation icon theo Android.

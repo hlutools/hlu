@@ -1,7 +1,7 @@
 {
   "name": "hlu-tools-github-pages",
   "private": true,
-  "version": "280926.2",
+  "version": "280926.3",
   "type": "module",
   "scripts": {
     "test": "node scripts/verify.mjs",
