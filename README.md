@@ -1,8 +1,17 @@
 # HLU TOOLS – Web/PWA
 
-**Phiên bản Web: 280926** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
+**Phiên bản Web: 280926.1** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
 
 Production: **https://hlutools.github.io/hlu/**
+
+## 280926.1 — sửa UI và Tin tức
+
+- Tạo lại icon chuông Header theo vector chuông 24dp của Android 280926; badge thông báo giữ riêng, không bake vào header.
+- Chuẩn hóa icon Menu trái theo đúng chức năng.
+- Đồng bộ màn Cài đặt theo cấu trúc 5 nhóm của Android: Tài khoản & hồ sơ, Giao diện, Ngôn ngữ, Đồng bộ dữ liệu, Giới thiệu.
+- Xóa khỏi footer Menu trái các dòng “Đồng hành cùng VNPT / vì một kết nối tốt đẹp hơn / Version 280926”; giữ `Developed by Cường VNPT`.
+- Tin tức: Apps Script vẫn là nguồn chính; thêm `assets/data/news_fallback.json` cùng-origin để Safari/Web có dữ liệu dự phòng khi API bị CORS/redirect/network chặn. GitHub Pages build refresh snapshot này best-effort bằng `HLU_SYNC_NEWS=1`.
+
 
 ## Phạm vi đồng bộ 280926
 

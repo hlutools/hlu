@@ -1,5 +1,14 @@
 # Changelog
 
+## 280926.1-web-fix
+
+- Sửa icon chuông Header theo Android 280926.
+- Chuẩn hóa icon Menu trái theo chức năng.
+- Đồng bộ cấu trúc Cài đặt Web theo Android 280926.
+- Xóa tagline + version khỏi footer Drawer, giữ Developed by Cường VNPT.
+- Sửa Tin tức bằng API-first + same-origin fallback snapshot; Pages build refresh snapshot best-effort từ Apps Script.
+- Không thay đổi E-Learning, Saved, Download, Search hay các module ngoài phạm vi.
+
 ## 280926-web
 
 - Dựng lại Web/PWA theo full source Android 280926.

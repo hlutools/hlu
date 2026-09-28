@@ -1,8 +1,13 @@
 {
-  "name":"hlu-tools-github-pages",
-  "private":true,
-  "version":"280926",
-  "type":"module",
-  "scripts":{"test":"node scripts/verify.mjs","build":"node scripts/build.mjs"},
-  "engines":{"node":">=22"}
+  "name": "hlu-tools-github-pages",
+  "private": true,
+  "version": "280926.1",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/verify.mjs",
+    "build": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }

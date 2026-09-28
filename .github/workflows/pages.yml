@@ -1,4 +1,4 @@
-name: Build and deploy HLU TOOLS Web 280926
+name: Build and deploy HLU TOOLS Web 280926.1
 
 on:
   push:
@@ -24,7 +24,7 @@ env:
 
 jobs:
   build:
-    name: Verify and package Web 280926
+    name: Verify and package Web 280926.1
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -33,10 +33,10 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify Web 280926 source
+      - name: Verify Web 280926.1 source
         run: npm test
       - name: Build static GitHub Pages site
-        run: npm run build
+        run: HLU_SYNC_NEWS=1 npm run build
       - name: Upload downloadable source package
         uses: actions/upload-artifact@v7
         with:
@@ -75,7 +75,7 @@ jobs:
 
   smoke:
     if: github.event_name != 'pull_request'
-    name: Smoke test production 280926
+    name: Smoke test production 280926.1
     needs: deploy
     runs-on: ubuntu-latest
     steps:
@@ -86,15 +86,15 @@ jobs:
           URL="${PRODUCTION_URL}?release=${GITHUB_SHA}"
           for n in 1 2 3 4 5 6; do
             if curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$URL" -o /tmp/hlu-index.html; then
-              if grep -q 'data-web-version="280926"' /tmp/hlu-index.html \
+              if grep -q 'data-web-version="280926.1"' /tmp/hlu-index.html \
                 && ! grep -Eq 'view=toolkit|assets/toolkit\.js|data-route="toolkit"' /tmp/hlu-index.html; then
-                echo "Production 280926 smoke test passed."
+                echo "Production 280926.1 smoke test passed."
                 exit 0
               fi
             fi
             sleep 10
           done
-          echo "Production 280926 smoke test failed." >&2
+          echo "Production 280926.1 smoke test failed." >&2
           exit 1
 
   rollback:
