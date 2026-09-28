@@ -1,8 +1,17 @@
 # HLU TOOLS – Web/PWA
 
-**Phiên bản Web: 280926.1** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
+**Phiên bản Web: 280926.2** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
 
 Production: **https://hlutools.github.io/hlu/**
+
+## 280926.2 — đồng bộ UI Android và Tin tức
+
+- Bottom Navigation dùng icon vector Home / Search / BookmarkBorder / Download đúng với Android 280926.
+- Màn Tài nguyên: mỗi bài có cụm Favorite + Download; Download bị vô hiệu hóa khi bài chưa có link tải.
+- Cài đặt > Giới thiệu: đồng bộ bố cục Android gồm thông tin app, Giới thiệu, Kiểm tra cập nhật, Nhật ký phiên bản, Facebook, Zalo, Điện thoại, Góp ý và Đơn vị phát triển; dùng icon/tài nguyên tương ứng Android.
+- E-Learning: hàng Thi thử dùng icon Timer đúng Android.
+- Tin tức: snapshot cùng-origin được nạp trước lần render đầu tiên và luôn được merge theo ID với dữ liệu API/cache; API vẫn ưu tiên khi có cùng ID.
+- Giữ Network Toolkit ngoài phạm vi Web.
 
 ## 280926.1 — sửa UI và Tin tức
 
@@ -57,7 +66,8 @@ npm run build
 Xem `BACKUP_ROLLBACK.md`.
 
 Các mốc backup trước khi thay Web 280926:
+- `backup/web-2809261-before-fix-20260928`: Web 280926.1 ngay trước bản sửa 280926.2.
 - `backup/web-before-280926-20260928`: trạng thái `main` ngay trước đợt dựng này.
 - `backup/web-2209265-pre-archive`: Web App 220926.5 đầy đủ trước khi từng chuyển sang trang archive.
 
-Workflow deploy chỉ chạy Pages sau khi Verify/Build pass. Sau deploy có smoke test; nếu smoke test thất bại, workflow tự deploy lại backup `backup/web-2209265-pre-archive`.
+Workflow deploy chỉ chạy Pages sau khi Verify/Build pass. Sau deploy có smoke test; nếu smoke test thất bại, workflow tự deploy lại backup `backup/web-2809261-before-fix-20260928` cho release 280926.2.
