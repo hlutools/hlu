@@ -8,7 +8,7 @@ const must=[
   'assets/android-v280926/header_260926_thong_bao.webp','assets/android-v280926/header_260926_tai_nguyen.webp','assets/android-v280926/header_260926_cai_dat.webp','assets/android-v280926/header_260926_gioi_thieu.webp',
   'assets/android-v280926/header_260926_tin_tuc.webp','assets/android-v280926/header_260926_soft.webp','assets/android-v280926/header_260926_tai_lieu.webp','assets/android-v280926/header_260926_firmware.webp','assets/android-v280926/header_260926_e_learning.webp',
   'assets/android-v280926/home_card_soft_bg_210926.webp','assets/android-v280926/home_card_docs_bg_210926.webp','assets/android-v280926/home_card_firmware_bg_210926.webp','assets/android-v280926/home_card_learning_bg_210926.webp',
-  'assets/android-v280926/resources_hero_270926_1.webp','assets/data/exam_bank.json','BACKUP_ROLLBACK.md'
+  'assets/android-v280926/resources_hero_270926_1.webp','assets/data/exam_bank.json','assets/data/news_fallback.json','BACKUP_ROLLBACK.md'
 ];
 for(const f of must) if(!fs.existsSync(f)) throw new Error('Thiếu file: '+f);
 
@@ -25,9 +25,9 @@ const manifestRaw=fs.readFileSync('manifest.webmanifest','utf8');
 const manifest=JSON.parse(manifestRaw);
 
 if(manifest.id!=='/hlu/'||manifest.start_url!=='/hlu/'||manifest.scope!=='/hlu/') throw new Error('Manifest sai base /hlu/');
-if(!config.includes("APP_VERSION:'280926'")) throw new Error('Sai version Web 280926');
-if(!sw.includes("hlu-tools-280926-v1")) throw new Error('Service Worker sai cache 280926');
-if(!index.includes('data-web-version="280926"')) throw new Error('index thiếu marker version 280926');
+if(!config.includes("APP_VERSION:'280926.1'")) throw new Error('Sai version Web 280926');
+if(!sw.includes("hlu-tools-280926-1-v1")) throw new Error('Service Worker sai cache 280926');
+if(!index.includes('data-web-version="280926.1"')) throw new Error('index thiếu marker version 280926');
 
 for(const label of ['Trang chủ','Tin tức','Soft','Tài liệu','Firmware','E-Learning','Tìm kiếm','Đã lưu','Download','Cài đặt']){
   if(!index.includes(label)) throw new Error('Drawer thiếu '+label);
@@ -53,6 +53,9 @@ for(const marker of ['SpeechRecognition','webkitSpeechRecognition','popular','ta
 }
 if(!css.includes('.resource-grid')||!css.includes('.exam-wrap')||!css.includes('.popular-grid')||!css.includes('.bottom-nav-four')) throw new Error('CSS thiếu UI 280926');
 
+for(const marker of ['ICON_PATHS','notifications','settingsGroupRow','SETTINGS_GROUPS','loadNewsFallback','news_fallback.json']){if(!(app+index+sw).includes(marker))throw new Error('Thiếu fix 280926.1: '+marker);}
+for(const stale of ['Đồng hành cùng VNPT','vì một kết nối tốt đẹp hơn','drawerVersion']){if((index+app).includes(stale))throw new Error('Drawer còn text cũ: '+stale);}
+const fallback=JSON.parse(fs.readFileSync('assets/data/news_fallback.json','utf8'));const fallbackNews=Array.isArray(fallback.data)?fallback.data.filter(x=>x.section==='news'&&x.visible!==false&&x.id&&x.title):[];if(fallbackNews.length<3)throw new Error('news_fallback không đủ dữ liệu Tin tức');
 new Function(app);new Function(exam);new Function(config);new Function(sw);
 const bank=JSON.parse(fs.readFileSync('assets/data/exam_bank.json','utf8'));
 if(bank.schemaVersion!==3) throw new Error('exam_bank local không phải schema 3');
@@ -64,4 +67,4 @@ for(const topic of bank.topics){const d=Number(topic.durationMinutes??topic.time
 const headers=fs.readdirSync('assets/android-v280926').filter(x=>x.startsWith('header_260926_')&&x.endsWith('.webp'));
 if(headers.length!==13) throw new Error('Số header 280926 không đúng: '+headers.length);
 
-console.log(`HLU TOOLS Web/PWA 280926 verification passed: ${must.length} required files, ${headers.length} dedicated headers, ${bank.topics.length} exam topics, ${bank.questions.length} local questions, Toolkit Web removed.`);
+console.log(`HLU TOOLS Web/PWA 280926.1 verification passed: ${must.length} required files, ${headers.length} dedicated headers, ${bank.topics.length} exam topics, ${bank.questions.length} local questions, Toolkit Web removed.`);
