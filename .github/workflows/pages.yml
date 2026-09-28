@@ -1,4 +1,4 @@
-name: Build and deploy HLU TOOLS Web 280926.3
+name: Build and deploy HLU TOOLS Web 280926.4
 
 on:
   push:
@@ -20,11 +20,11 @@ concurrency:
 
 env:
   PRODUCTION_URL: https://hlutools.github.io/hlu/
-  ROLLBACK_REF: backup/web-2809262-before-fix-20260928
+  ROLLBACK_REF: backup/web-2809263-before-about-sync-20260928
 
 jobs:
   build:
-    name: Verify and package Web 280926.3
+    name: Verify and package Web 280926.4
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify Web 280926.3 source
+      - name: Verify Web 280926.4 source
         run: npm test
       - name: Build static GitHub Pages site
         run: HLU_SYNC_NEWS=1 npm run build
@@ -75,7 +75,7 @@ jobs:
 
   smoke:
     if: github.event_name != 'pull_request'
-    name: Smoke test production 280926.3
+    name: Smoke test production 280926.4
     needs: deploy
     runs-on: ubuntu-latest
     steps:
@@ -86,20 +86,20 @@ jobs:
           URL="${PRODUCTION_URL}?release=${GITHUB_SHA}"
           for n in 1 2 3 4 5 6; do
             if curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$URL" -o /tmp/hlu-index.html; then
-              if grep -q 'data-web-version="280926.3"' /tmp/hlu-index.html \
+              if grep -q 'data-web-version="280926.4"' /tmp/hlu-index.html \
                 && ! grep -Eq 'view=toolkit|assets/toolkit\.js|data-route="toolkit"' /tmp/hlu-index.html \
                 && curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "${PRODUCTION_URL}assets/data/news_fallback.json?release=${GITHUB_SHA}" -o /tmp/hlu-news.json \
                 && grep -q '"section": "news"' /tmp/hlu-news.json \
                 && curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "${PRODUCTION_URL}assets/app.js?release=${GITHUB_SHA}" -o /tmp/hlu-app.js \
                 && ! grep -q 'map(normalize)' /tmp/hlu-app.js \
                 && grep -q "rows.map(x=>card(x,{download:true}))" /tmp/hlu-app.js; then
-                echo "Production 280926.3 smoke test passed with news/category/download fixes."
+                echo "Production 280926.4 smoke test passed with news/category/download fixes."
                 exit 0
               fi
             fi
             sleep 10
           done
-          echo "Production 280926.3 smoke test failed." >&2
+          echo "Production 280926.4 smoke test failed." >&2
           exit 1
 
   rollback:
