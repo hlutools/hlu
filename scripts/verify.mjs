@@ -26,7 +26,7 @@ const manifest=JSON.parse(manifestRaw);
 
 if(manifest.id!=='/hlu/'||manifest.start_url!=='/hlu/'||manifest.scope!=='/hlu/') throw new Error('Manifest sai base /hlu/');
 if(!config.includes("APP_VERSION:'280926.2'")) throw new Error('Sai version Web 280926');
-if(!sw.includes("hlu-tools-280926-1-v1")) throw new Error('Service Worker sai cache 280926');
+if(!sw.includes("hlu-tools-280926-2-v1")) throw new Error('Service Worker sai cache 280926');
 if(!index.includes('data-web-version="280926.2"')) throw new Error('index thiếu marker version 280926');
 
 for(const label of ['Trang chủ','Tin tức','Soft','Tài liệu','Firmware','E-Learning','Tìm kiếm','Đã lưu','Download','Cài đặt']){
