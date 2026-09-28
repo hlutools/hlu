@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 const C=window.HLU_CONFIG||{}; const BASE=C.BASE_PATH||'/hlu/';
-const DB_NAME='hlu_tools_exam'; const DB_VERSION=1; const STORE='bank'; const CACHE_KEY='current'; const HISTORY_KEY='hlu_tools_exam_history_2209265';
+const DB_NAME='hlu_tools_exam'; const DB_VERSION=1; const STORE='bank'; const CACHE_KEY='current'; const HISTORY_KEY='hlu_tools_exam_history_280926'; const LEGACY_HISTORY_KEY='hlu_tools_exam_history_2209265';
 const SUPPORTED_SCHEMA_VERSION=3; const MOCK_COUNTS=[20,30]; const DEFAULT_MOCK_COUNT=20; const DEFAULT_DURATION=20;
 
 function openDb(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window))return reject(new Error('INDEXEDDB_UNAVAILABLE'));const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(STORE))db.createObjectStore(STORE);};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('INDEXEDDB_ERROR'));});}
@@ -78,7 +78,7 @@ const ExamEngine={
   score(attempt,selected){const correct=attempt.questions.filter(q=>this.isAnswerCorrect(q.source,selected[q.source.id]||[])).length;const total=attempt.questions.length;return{correct,total,percent:total?Math.floor(correct*100/total):0};}
 };
 const ExamHistoryStore={
-  load(){try{const v=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');return Array.isArray(v)?v:[];}catch(_){return[];}},
+  load(){try{let raw=localStorage.getItem(HISTORY_KEY);if(raw==null){raw=localStorage.getItem(LEGACY_HISTORY_KEY);if(raw!=null)localStorage.setItem(HISTORY_KEY,raw);}const v=JSON.parse(raw||'[]');return Array.isArray(v)?v:[];}catch(_){return[];}},
   add(attempt,score){const rows=this.load();rows.unshift({id:attempt.id,topicId:attempt.topic.id,topicTitle:attempt.topic.title,mode:attempt.mode,correct:score.correct,total:score.total,percent:score.percent,finishedAt:new Date().toISOString()});localStorage.setItem(HISTORY_KEY,JSON.stringify(rows.slice(0,30)));}
 };
 window.HLUExam={ExamRepository,ExamEngine,ExamHistoryStore,MOCK_COUNTS,DEFAULT_MOCK_COUNT,validate};

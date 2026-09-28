@@ -1,53 +1,40 @@
-> ⚠️ **DỰ ÁN ĐÃ DỪNG PHÁT TRIỂN (ARCHIVED)** — Xem [`ARCHIVE_NOTICE.md`](ARCHIVE_NOTICE.md) để biết lý do và hướng khôi phục.
-
 # HLU TOOLS – Web/PWA
 
-Web App/PWA triển khai tại **https://hlutools.github.io/hlu/**, đồng bộ theo source Android **220926.5**.
+**Phiên bản Web: 280926** · dựng theo full source Android `HLU_TOOLS_VERSION_280926_FULL_SOURCE.zip`.
 
-## Nguồn chuẩn
+Production: **https://hlutools.github.io/hlu/**
 
-- Android: `HLU_TOOLS_VERSION_220926.5_FULL.zip` (`com.vnpt.nbh.tools`).
-- Web: repository `hlutools/hlu`, base path cố định `/hlu/`.
-- API: Google Apps Script dùng chung với Android, cấu hình tại `assets/config.js`.
+## Phạm vi đồng bộ 280926
 
-## Đồng bộ Android 220926.5
+- Giữ cấu trúc nội dung của Android 280926: Trang chủ, Tin tức, Soft, Tài liệu, Firmware, E‑Learning, Tìm kiếm, Đã lưu, Download, Thông báo, Cài đặt, Giới thiệu và Tài nguyên.
+- Dùng đúng bộ header Android 280926 cho từng mục; bài viết/trình xem dùng header theo Section, riêng bài mở từ Tin tức giữ header Tin tức.
+- Tin tức dùng `sourceSection` + `sourceId` để mở tài nguyên gốc khi API cung cấp mapping.
+- Tìm kiếm hiển thị tối đa 6 từ khóa phổ biến (2 dòng × 3), có lịch sử/gợi ý và Web Speech API khi trình duyệt hỗ trợ.
+- E‑Learning giữ schema 3, `multi_choice`, `true_false`, cấu hình thi 20/30 câu, thời lượng theo chủ đề, online → IndexedDB → local fallback.
+- Saved, Download history, Notification, Feedback, Analytics và Google Drive image recovery được giữ lại theo cơ chế Web/PWA hiện có.
 
-- Design System mới: màu HLU, Header 60dp tương đương, Drawer phân nhóm và Bottom Navigation 5 mục.
-- Bottom Navigation: **Trang chủ · Tìm kiếm · Toolkit · Đã lưu · Download**.
-- Thông báo chuyển lên biểu tượng chuông ở Header Trang chủ.
-- Home mới: Tình trạng kết nối, Công cụ mạng, Tài nguyên 2×2, Tin tức.
-- Tài nguyên: SOFT, Tài liệu, Firmware, E-Learning + danh sách mới cập nhật.
-- Network Toolkit đủ 10 card theo Android.
-- E-Learning: ngân hàng online → IndexedDB → local fallback, schema 3, `multi_choice`, `true_false`, đề 20/30 câu, thời gian riêng theo chủ đề, tự nộp khi hết giờ, lịch sử kết quả local.
-- Tin tức giữ badge **Mới** độc lập trạng thái Notification; chỉ bỏ Mới khi mở bài.
-- Giữ Saved, Download history, Feedback, Google Drive image recovery, cache/offline PWA và analytics best-effort.
-- Drawer: Tổng quan / Tài nguyên / Công cụ / Hệ thống, footer `Developed by Cường VNPT`.
+## Network Toolkit
 
-## Chuyển lớp nền tảng Android → Web
+**Network Toolkit không được đưa vào Web App 280926.**
 
-| Android | Web/PWA |
-|---|---|
-| SharedPreferences | `localStorage` |
-| AtomicFile exam cache | `IndexedDB` |
-| assets/exam_bank.json | `assets/data/exam_bank.json` |
-| DownloadManager | trình duyệt tải link + lịch sử local |
-| NotificationManager | Web Notification API khi được cấp quyền |
-| Activity/NavHost | query-string SPA routing (`?view=...`) |
-| WorkManager | refresh khi app mở/online + chu kỳ 60 giây khi trang đang hoạt động |
+Web đã xóa/không deploy:
+- màn hình Toolkit và màn hình từng tool;
+- route `toolkit` / `toolkit/{tool}`;
+- mục Network Toolkit trong Drawer;
+- nút Toolkit ở Bottom Navigation;
+- khối Công cụ mạng trên Trang chủ;
+- `assets/toolkit.js` và dữ liệu OUI dành riêng cho Toolkit;
+- shortcut PWA Toolkit.
 
-### Giới hạn Network Toolkit trên Web
+Phiên bản Android **không thay đổi** và vẫn giữ Network Toolkit native.
 
-Trình duyệt không cho Web App quét Wi‑Fi/LAN, gửi ICMP/traceroute hay mở TCP socket tùy ý. Vì vậy UI vẫn giữ đúng 10 công cụ, nhưng các công cụ native-only hiển thị thông báo yêu cầu HLU TOOLS Android thay vì giả lập dữ liệu.
+## Khác biệt nền tảng Web
 
-Web thực thi được:
-- Subnet Calculator.
-- MAC Vendor lookup theo OUI local (nếu CSDL OUI có dữ liệu).
-- Public IP qua HTTPS.
-- LibreSpeed thử nghiệm khi máy chủ cho phép CORS.
+Một số API Android không có tương đương an toàn trên trình duyệt. Khung **Tình trạng kết nối** trên Web chỉ hiển thị dữ liệu trình duyệt có thể lấy hợp lệ: online/offline, loại kết nối khi browser cung cấp, Public IP best-effort và API RTT. Download được giao cho trình duyệt quản lý file; app lưu lịch sử thao tác tải.
 
 ## Build
 
-Yêu cầu Node.js 22+:
+Node.js 22+:
 
 ```bash
 npm test
@@ -56,12 +43,12 @@ npm run build
 
 `dist/` là nội dung deploy GitHub Pages.
 
-## Deploy
+## Backup / rollback
 
-Workflow `.github/workflows/pages.yml` chạy khi push/merge vào `main`:
-1. Verify source và asset.
-2. Build static site.
-3. Upload artifact.
-4. Deploy GitHub Pages.
+Xem `BACKUP_ROLLBACK.md`.
 
-Không đổi base path `/hlu/` khi repository vẫn mang tên `hlu`.
+Các mốc backup trước khi thay Web 280926:
+- `backup/web-before-280926-20260928`: trạng thái `main` ngay trước đợt dựng này.
+- `backup/web-2209265-pre-archive`: Web App 220926.5 đầy đủ trước khi từng chuyển sang trang archive.
+
+Workflow deploy chỉ chạy Pages sau khi Verify/Build pass. Sau deploy có smoke test; nếu smoke test thất bại, workflow tự deploy lại backup `backup/web-2209265-pre-archive`.

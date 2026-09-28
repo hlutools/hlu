@@ -1,4 +1,4 @@
-name: Build and deploy HLU TOOLS
+name: Build and deploy HLU TOOLS Web 280926
 
 on:
   push:
@@ -18,9 +18,13 @@ concurrency:
   group: hlu-tools-pages
   cancel-in-progress: true
 
+env:
+  PRODUCTION_URL: https://hlutools.github.io/hlu/
+  ROLLBACK_REF: backup/web-2209265-pre-archive
+
 jobs:
   build:
-    name: Verify and package
+    name: Verify and package Web 280926
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -29,14 +33,14 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify archived Web/PWA snapshot
+      - name: Verify Web 280926 source
         run: npm test
-      - name: Build archived GitHub Pages notice
+      - name: Build static GitHub Pages site
         run: npm run build
-      - name: Upload archived source package
+      - name: Upload downloadable source package
         uses: actions/upload-artifact@v7
         with:
-          name: HLU_TOOLS_GITHUB_PAGES_HLU
+          name: HLU_TOOLS_WEB_280926_SOURCE
           path: |
             .
             !.git/**
@@ -46,10 +50,12 @@ jobs:
           if-no-files-found: error
           retention-days: 90
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v6
         with:
           enablement: true
       - name: Upload GitHub Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5
         with:
           path: dist
@@ -66,3 +72,63 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v5
+
+  smoke:
+    if: github.event_name != 'pull_request'
+    name: Smoke test production 280926
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify production markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="${PRODUCTION_URL}?release=${GITHUB_SHA}"
+          for n in 1 2 3 4 5 6; do
+            if curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "$URL" -o /tmp/hlu-index.html; then
+              if grep -q 'data-web-version="280926"' /tmp/hlu-index.html \
+                && ! grep -Eq 'view=toolkit|assets/toolkit\.js|data-route="toolkit"' /tmp/hlu-index.html; then
+                echo "Production 280926 smoke test passed."
+                exit 0
+              fi
+            fi
+            sleep 10
+          done
+          echo "Production 280926 smoke test failed." >&2
+          exit 1
+
+  rollback:
+    if: ${{ always() && github.event_name != 'pull_request' && needs.smoke.result == 'failure' }}
+    name: Roll back to Web 220926.5 backup
+    needs: smoke
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.rollback_deploy.outputs.page_url }}
+    steps:
+      - name: Checkout verified Web backup
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.ROLLBACK_REF }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Verify backup
+        run: npm test
+      - name: Build backup
+        run: npm run build
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+        with:
+          enablement: true
+      - name: Upload rollback Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          name: github-pages-rollback
+          path: dist
+      - name: Deploy rollback artifact
+        id: rollback_deploy
+        uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-rollback
