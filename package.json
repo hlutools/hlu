@@ -1,10 +1,10 @@
 {
   "name": "hlu-tools-github-pages",
   "private": true,
-  "version": "280926.4",
+  "version": "02102026",
   "type": "module",
   "scripts": {
-    "test": "node scripts/verify.mjs",
+    "test": "node scripts/verify.mjs && node scripts/regression.mjs",
     "build": "node scripts/build.mjs"
   },
   "engines": {

@@ -1,3 +1,7 @@
+# 02102026 — Android parity, Web không Toolkit
+
+Đồng bộ vector drawer, hồ sơ hiển thị, ảnh Home 300926 và footer; thêm slide bài mới 48px/tối đa 5; icon Material chuẩn cho các action; tài nguyên dùng facet Android; Download chỉ hiện khi có URL tải; tùy chọn giao diện và ngôn ngữ chỉ tác động presentation; bỏ action Kiểm tra cập nhật theo Android. Giữ API, dữ liệu, cache cũ và engine E-Learning.
+
 # Changelog
 
 ## 280926.4-web-about-parity
