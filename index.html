@@ -13,53 +13,51 @@
   <link rel="apple-touch-icon" href="/hlu/assets/icons/apple-touch-icon.png">
   <link rel="icon" sizes="192x192" href="/hlu/assets/icons/icon-192.png">
   <link rel="stylesheet" href="/hlu/assets/app.css">
+  <link rel="stylesheet" href="/hlu/assets/parity.css">
   <title>HLU TOOLS</title>
 </head>
-<body data-web-version="280926.4">
+<body data-web-version="02102026">
 <div id="app" class="app-shell">
   <header id="appHeader" class="app-header">
     <div id="headerArtwork" class="header-artwork"><img id="headerImage" alt="HLU TOOLS"></div>
-    <button id="headerLeft" class="header-action left" type="button" aria-label="Mở menu"><span id="headerLeftIcon" class="header-icon-slot" data-ui-icon="menu"></span></button>
-    <button id="headerRight" class="header-action right" type="button" aria-label="Thông báo"><span id="headerRightIcon" class="header-icon-slot" data-ui-icon="notifications"></span><i id="headerBadge" class="header-badge hidden">0</i></button>
+    <button id="headerLeft" class="header-action left" type="button" aria-label="Mở menu" data-i18n-aria-label="Mở menu"><span id="headerLeftIcon" class="header-icon-slot" data-ui-icon="menu"></span></button>
+    <button id="headerRight" class="header-action right" type="button" aria-label="Thông báo" data-i18n-aria-label="Thông báo"><span id="headerRightIcon" class="header-icon-slot" data-ui-icon="notifications"></span><i id="headerBadge" class="header-badge hidden">0</i></button>
   </header>
 
   <aside id="drawer" class="drawer" aria-hidden="true">
-    <div class="drawer-head">
-      <img src="/hlu/assets/android-v280926/drawer_header_mockup_210926.webp" alt="HLU TOOLS">
-      <div class="drawer-service"><i id="drawerStatusDot"></i><span id="drawerStatusText">Đang chờ kết nối</span></div>
-    </div>
+    <div id="drawerProfile" class="drawer-profile"></div>
     <nav id="drawerNav" class="drawer-nav">
       <div class="drawer-group">TỔNG QUAN</div>
-      <button data-route="home"><span class="drawer-icon" data-ui-icon="home"></span><b>Trang chủ</b></button>
-      <button data-route="news"><span class="drawer-icon" data-ui-icon="article"></span><b>Tin tức</b><i id="drawerNewsBadge" class="menu-badge hidden">0</i></button>
+      <button data-route="home"><span class="drawer-icon" data-ui-icon="drawerHome"></span><b data-i18n="Trang chủ">Trang chủ</b></button>
+      <button data-route="news"><span class="drawer-icon" data-ui-icon="drawerNews"></span><b data-i18n="Tin tức">Tin tức</b><i id="drawerNewsBadge" class="menu-badge hidden">0</i></button>
       <hr>
       <div class="drawer-group">TÀI NGUYÊN</div>
-      <button data-section="soft"><span class="drawer-icon" data-ui-icon="computer"></span><b>Soft</b></button>
-      <button data-section="docs"><span class="drawer-icon" data-ui-icon="description"></span><b>Tài liệu</b></button>
-      <button data-section="firmware"><span class="drawer-icon" data-ui-icon="memory"></span><b>Firmware</b></button>
-      <button data-route="exam"><span class="drawer-icon" data-ui-icon="school"></span><b>E-Learning</b></button>
+      <button data-section="soft"><span class="drawer-icon" data-ui-icon="drawerSoft"></span><b>Soft</b></button>
+      <button data-section="docs"><span class="drawer-icon" data-ui-icon="drawerDocs"></span><b data-i18n="Tài liệu">Tài liệu</b></button>
+      <button data-section="firmware"><span class="drawer-icon" data-ui-icon="drawerFirmware"></span><b>Firmware</b></button>
+      <button data-route="exam"><span class="drawer-icon" data-ui-icon="drawerLearning"></span><b>E-Learning</b></button>
       <hr>
       <div class="drawer-group">CÔNG CỤ</div>
-      <button data-route="search"><span class="drawer-icon" data-ui-icon="search"></span><b>Tìm kiếm</b></button>
-      <button data-route="saved"><span class="drawer-icon" data-ui-icon="bookmark"></span><b>Đã lưu</b></button>
-      <button data-route="downloads"><span class="drawer-icon" data-ui-icon="download"></span><b>Download</b></button>
+      <button data-route="search"><span class="drawer-icon" data-ui-icon="drawerSearch"></span><b data-i18n="Tìm kiếm">Tìm kiếm</b></button>
+      <button data-route="saved"><span class="drawer-icon" data-ui-icon="drawerSaved"></span><b data-i18n="Đã lưu">Đã lưu</b></button>
+      <button data-route="downloads"><span class="drawer-icon" data-ui-icon="drawerDownload"></span><b>Download</b></button>
       <hr>
       <div class="drawer-group">HỆ THỐNG</div>
-      <button data-route="settings"><span class="drawer-icon" data-ui-icon="settings"></span><b>Cài đặt</b></button>
+      <button data-route="settings"><span class="drawer-icon" data-ui-icon="drawerSettings"></span><b data-i18n="Cài đặt">Cài đặt</b></button>
     </nav>
     <footer class="drawer-footer">
-      <div class="cityline"></div>
+      <img class="drawer-bottom-artwork" src="/hlu/assets/android-v02102026/drawer_bottom_artwork.png" alt="">
       <p>Developed by <a id="developerLink" href="#">Cường VNPT</a></p>
     </footer>
   </aside>
-  <button id="scrim" class="scrim hidden" type="button" aria-label="Đóng menu"></button>
+  <button id="scrim" class="scrim hidden" type="button" aria-label="Đóng menu" data-i18n-aria-label="Đóng menu"></button>
 
   <main id="viewRoot" class="view-root" aria-live="polite"></main>
 
   <nav id="bottomNav" class="bottom-nav bottom-nav-four" aria-label="Điều hướng chính">
-    <button data-route="home"><span class="bottom-icon" data-ui-icon="home"></span><small>Trang chủ</small><i></i></button>
-    <button data-route="search"><span class="bottom-icon" data-ui-icon="search"></span><small>Tìm kiếm</small><i></i></button>
-    <button data-route="saved"><span class="bottom-icon" data-ui-icon="bookmark"></span><small>Đã lưu</small><i></i></button>
+    <button data-route="home"><span class="bottom-icon" data-ui-icon="home"></span><small data-i18n="Trang chủ">Trang chủ</small><i></i></button>
+    <button data-route="search"><span class="bottom-icon" data-ui-icon="search"></span><small data-i18n="Tìm kiếm">Tìm kiếm</small><i></i></button>
+    <button data-route="saved"><span class="bottom-icon" data-ui-icon="bookmark"></span><small data-i18n="Đã lưu">Đã lưu</small><i></i></button>
     <button data-route="downloads"><span class="bottom-icon" data-ui-icon="download"></span><small>Download</small><i></i></button>
   </nav>
 
@@ -67,6 +65,8 @@
 </div>
 <script src="/hlu/assets/config.js"></script>
 <script src="/hlu/assets/exam.js"></script>
+<script src="/hlu/assets/icons.js"></script>
+<script src="/hlu/assets/presentation.js"></script>
 <script src="/hlu/assets/app.js"></script>
 </body>
 </html>

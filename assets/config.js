@@ -2,8 +2,8 @@ window.HLU_CONFIG=Object.freeze({
   BASE_PATH:'/hlu/',
   API_URL:'https://script.google.com/macros/s/AKfycbzwUuTpjfE57a5IBFdOpomOuMPvBQySGWr4VPptnoTxEa-ubuO8-YGczIM-mzBeM0ND/exec',
   API_TIMEOUT:20000,
-  APP_VERSION:'280926.4',
-  ANDROID_SOURCE_VERSION:'280926',
+  APP_VERSION:'02102026',
+  ANDROID_SOURCE_VERSION:'02102026',
   SOURCE_URL:'https://dhttnbh.blogspot.com/',
   UNIT_NAME:'VNPT HOA LƯ',
   WEB_URL:'https://hlutools.github.io/hlu/',
@@ -22,16 +22,17 @@ window.HLU_CONFIG=Object.freeze({
   }
   function candidates(value){
     var raw=String(value||'').trim();var id=extractDriveId(raw);if(!id)return raw?[raw]:[];
+    var width=1200;try{if(JSON.parse(localStorage.getItem('hlu_ui_preferences')||'{}').highQualityImages===false)width=480;}catch(_){}
     return [
-      'https://lh3.googleusercontent.com/d/'+encodeURIComponent(id)+'=w1200',
-      'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w1200',
+      'https://lh3.googleusercontent.com/d/'+encodeURIComponent(id)+'=w'+width,
+      'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w'+width,
       'https://drive.google.com/uc?export=view&id='+encodeURIComponent(id)
     ];
   }
   function fallback(img){
     img.hidden=true;var p=img.parentElement;if(!p)return;p.classList.add('image-load-failed');
     if(p.classList.contains('home-news-thumb'))p.textContent='NEWS';
-    else if(p.classList.contains('content-thumb'))p.textContent='📰';
+    else if(p.classList.contains('content-thumb'))p.textContent='NEWS';
   }
   function prepare(img){
     if(!img||img.tagName!=='IMG'||img.dataset.hluPrepared==='1')return;
