@@ -4,7 +4,7 @@
   "version": "02102026",
   "type": "module",
   "scripts": {
-    "test": "node scripts/verify.mjs && node scripts/regression.mjs",
+    "test": "node scripts/verify.mjs && node scripts/parity-regression.mjs",
     "build": "node scripts/build.mjs"
   },
   "engines": {

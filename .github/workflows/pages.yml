@@ -20,11 +20,11 @@ concurrency:
 
 env:
   PRODUCTION_URL: https://hlutools.github.io/hlu/
-  ROLLBACK_REF: backup/web-2809264-before-02102026-20261002
+  ROLLBACK_REF: 83cdd6361f119284da07e61458e52c42db1553dd
 
 jobs:
   build:
-    name: Verify and package Web 02102026
+    name: Verify and build Web 02102026
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -92,7 +92,7 @@ jobs:
 
   rollback:
     if: ${{ always() && github.event_name != 'pull_request' && needs.smoke.result == 'failure' }}
-    name: Roll back to Web 280926.4 backup
+    name: Roll back to Web 02102026 PR 8
     needs: smoke
     runs-on: ubuntu-latest
     environment:

@@ -1,6 +1,11 @@
-# 02102026 — Android parity, Web không Toolkit
+# 02102026 — 2026-10-02
 
-Đồng bộ vector drawer, hồ sơ hiển thị, ảnh Home 300926 và footer; thêm slide bài mới 48px/tối đa 5; icon Material chuẩn cho các action; tài nguyên dùng facet Android; Download chỉ hiện khi có URL tải; tùy chọn giao diện và ngôn ngữ chỉ tác động presentation; bỏ action Kiểm tra cập nhật theo Android. Giữ API, dữ liệu, cache cũ và engine E-Learning.
+- Đồng bộ source Android 02102026 trên Web 280926.4; giữ kiến trúc và loại Toolkit.
+- Chuyển vector Menu XML, bổ sung hồ sơ, slide bài mới 48px, ảnh Home mới và icon action/E-Learning theo baseline.
+- Đồng bộ tab Tài nguyên bằng facet; giữ category gốc; chỉ hiện Download nếu có link thật.
+- Đồng bộ Profile, tùy chọn hiển thị/ngôn ngữ, Giới thiệu và lịch sử phiên bản; bỏ action Kiểm tra cập nhật.
+- Giữ bank/engine thi; sửa thời điểm đăng ký Service Worker, precache asset mới.
+- Hoàn thành test source, regression logic, browser 20/30 và PWA offline. Chưa publish lên GitHub/production.
 
 # Changelog
 
