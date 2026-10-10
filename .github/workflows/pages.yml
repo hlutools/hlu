@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 22
-      - name: Verify Web 1102026 source
+      - name: Verify Web 10102026 source
         run: npm test
       - name: Build static GitHub Pages site
         run: HLU_SYNC_NEWS=1 npm run build
