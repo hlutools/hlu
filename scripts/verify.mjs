@@ -107,6 +107,8 @@ for(const icon of ['Home','News','Soft','Docs','Firmware','Learning','Search','S
  if(!index.includes('data-ui-icon="drawer'+icon+'"'))throw new Error('Drawer chưa dùng vector Android: '+icon);
 }
 for(const marker of ['latestResourceArticles','home-latest-strip','profileUiState','settings-profile-row','textScaleSelect','data-language'])if(!app.includes(marker))throw new Error('Thiếu parity Android 02102026: '+marker);
-if(app.includes('Hoàn tất (${all.length})'))throw new Error('Web không thể gán lịch sử yêu cầu tải thành tải hoàn tất');
+// 2026-10-10: user quyết định web Download có 3 tab Tất cả/Đang tải/Hoàn tất như Android —
+// "Hoàn tất" ở đây = đã bấm TẢI XUỐNG (trình duyệt quản lý file thật, web không track tiến trình).
+// Guard cũ cấm gán nhãn "Hoàn tất" cho lịch sử tải đã được gỡ theo quyết định này.
 const shell=sw.match(/BASE\+'([^']+)'/g)||[];
 for(const entry of shell){const file=entry.match(/BASE\+'([^']+)'/)[1];if(file==='')continue;if(!fs.existsSync(file))throw new Error('SW asset không tồn tại: '+file);}
