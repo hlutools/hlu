@@ -1,3 +1,13 @@
+# Sync Android 10102026 → Web (2026-10-10)
+
+Baseline: main tại merge PR #9 (`e9f6bdb` — Complete Android 02102026 parity).
+Branch: `sync/android-10102026`. PR mở sau khi `npm test` + `npm run build` PASS.
+Rollback: về `e9f6bdb` nếu smoke test production thất bại. Không force-push `main`.
+
+Phạm vi: Notifications Variant 5, Search segmented, Downloads grid toggle + xóa search,
+Saved xóa search, Detail sticky header, bottom nav 56dp, bump version 10102026.
+Không port: Toolkit (đã loại bỏ), fix PDF clipRect (native-only).
+
 # Backup / rollback Web 02102026
 
 Baseline Web đã kiểm tra: **280926.4**, commit `d428d623eeaeb5b68b1259a95dcf3623a9c8a0bd` trên repo `hlutools/hlu`.

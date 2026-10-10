@@ -1,4 +1,4 @@
-/* Presentation parity scoped to Android 02102026 components. */
+/* Presentation parity scoped to Android 10102026 components. */
 .drawer{padding-top:env(safe-area-inset-top);background:var(--surface)}
 .drawer-profile{height:72px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line)}
 .profile-avatar{flex:none;object-fit:cover;border-radius:50%}

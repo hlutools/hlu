@@ -1,6 +1,6 @@
-# HLU TOOLS Web/PWA 02102026
+# HLU TOOLS Web/PWA 10102026
 
-Đồng bộ từ Android **HLU_TOOLS_02102026_SOURCE.zip**, trên nền Web **280926.4** tại commit `d428d623eeaeb5b68b1259a95dcf3623a9c8a0bd`. **Toolkit tiếp tục bị loại bỏ hoàn toàn khỏi Web.**
+Đồng bộ từ Android **HLU_TOOLS_10102026_FULL.zip** (10/10/2026), trên nền Web 02102026 tại commit `e9f6bdb` (merge PR #9). **Toolkit tiếp tục bị loại bỏ hoàn toàn khỏi Web.**
 
 - Giữ JavaScript thuần, router `?view=`, localStorage, IndexedDB và Service Worker hiện có.
 - Menu dùng SVG chuyển trực tiếp từ vector XML Android; Bottom Navigation dùng đúng Home / Search / BookmarkBorder / Download.
@@ -8,8 +8,8 @@
 - Profile dùng state trình bày, avatar tròn, họ tên/nơi làm việc, rồi Tài khoản / Số điện thoại / Email. Mặc định chưa đăng nhập; không bổ sung backend Auth hoặc thao tác Đăng xuất giả.
 - Tài nguyên dùng các tab Tất cả / Tài liệu / Hướng dẫn / Mẫu biểu / Khác; facet không đổi category gốc. Favorite và Download nằm dọc bên phải; chỉ có Download khi có link tải thật.
 - Cài đặt bổ sung màu nhấn, cỡ chữ 75/100/120%, chất lượng ảnh và Tiếng Việt/English ở lớp hiển thị. Nội dung tài nguyên, đề thi, đáp án, dữ liệu và route không bị dịch.
-- Giới thiệu hiển thị `v02102026`, đúng lịch sử Android; Kiểm tra cập nhật là dòng thông tin chưa có action theo baseline.
-- E-Learning giữ engine/schema 3, cấu hình 20/30, timer và online → IndexedDB → local; ngân hàng bundled trùng byte với Android 02102026.
+- Giới thiệu hiển thị `v10102026`, đúng lịch sử Android; Kiểm tra cập nhật là dòng thông tin chưa có action theo baseline.
+- E-Learning giữ engine/schema 3, cấu hình 20/30, timer và online → IndexedDB → local; ngân hàng bundled trùng byte với Android 02102026 (giữ nguyên ở đợt này).
 - Sửa đăng ký Service Worker khi bootstrap async hoàn tất sau sự kiện `load`; cache mới `hlu-tools-02102026-v2` để thay toàn bộ asset sau bản PR #8.
 
 Browser chỉ cung cấp online/offline, loại kết nối nếu hỗ trợ, Public IP best-effort và API RTT; không giả SSID, IP LAN hoặc ICMP Ping. Trình duyệt quản lý file tải, ứng dụng chỉ lưu lịch sử yêu cầu tải.
