@@ -25,9 +25,9 @@ const manifestRaw=fs.readFileSync('manifest.webmanifest','utf8');
 const manifest=JSON.parse(manifestRaw);
 
 if(manifest.id!=='/hlu/'||manifest.start_url!=='/hlu/'||manifest.scope!=='/hlu/') throw new Error('Manifest sai base /hlu/');
-if(!config.includes("APP_VERSION:'02102026'")) throw new Error('Sai version Web 280926');
-if(!sw.includes("hlu-tools-02102026-v2")) throw new Error('Service Worker sai cache 02102026');
-if(!index.includes('data-web-version="02102026"')) throw new Error('index thiếu marker version 280926');
+if(!config.includes("APP_VERSION:'10102026'")) throw new Error('Sai version Web 280926');
+if(!sw.includes("hlu-tools-10102026-v1")) throw new Error('Service Worker sai cache 02102026');
+if(!index.includes('data-web-version="10102026"')) throw new Error('index thiếu marker version 280926');
 
 for(const label of ['Trang chủ','Tin tức','Soft','Tài liệu','Firmware','E-Learning','Tìm kiếm','Đã lưu','Download','Cài đặt']){
   if(!index.includes(label)) throw new Error('Drawer thiếu '+label);
@@ -73,7 +73,7 @@ for(const marker of [
   'canDownload=!!safeUrl(downloadRequest(item))'
 ]){if(!app.includes(marker))throw new Error('Thiếu fix 02102026 news/category/download: '+marker);}
 const releaseHistory=JSON.parse(fs.readFileSync('assets/data/release_history.json','utf8'));
-if(releaseHistory[0]?.version!=='02102026'||releaseHistory[0]?.date!=='2026-10-02') throw new Error('Nhật ký phiên bản chưa khớp Android 02102026');
+if(releaseHistory[0]?.version!=='10102026'||releaseHistory[0]?.date!=='2026-10-10') throw new Error('Nhật ký phiên bản chưa khớp Android 02102026');
 
 
 const aboutStart=app.indexOf("else if(group==='about')");
@@ -83,7 +83,7 @@ let aboutCursor=0;
 for(const label of ['Giới thiệu HLU TOOLS','Kiểm tra cập nhật','Nhật ký phiên bản','Facebook','Zalo','Điện thoại','Góp ý cho nhà phát triển','VNPT HOA LƯ']){
   const pos=aboutBlock.indexOf(label,aboutCursor);if(pos<0)throw new Error('Giới thiệu thiếu/sai thứ tự: '+label);aboutCursor=pos+label.length;
 }
-for(const marker of ["ANDROID_SOURCE_VERSION:'02102026'",'settings-about','settings-app-tagline','settings-app-version','release-title','release-actions','about-copy-last']){
+for(const marker of ["ANDROID_SOURCE_VERSION:'10102026'",'settings-about','settings-app-tagline','settings-app-version','release-title','release-actions','about-copy-last']){
   if(!(app+config+css).includes(marker))throw new Error('Thiếu parity Giới thiệu Android: '+marker);
 }
 if(aboutBlock.includes('Giấy phép mã nguồn'))throw new Error('Web có mục Giấy phép mã nguồn nhưng Android 280926 không có');

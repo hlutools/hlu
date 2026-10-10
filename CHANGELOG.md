@@ -1,3 +1,13 @@
+# 10102026 — 2026-10-10
+
+- Đồng bộ thay đổi Android 02102026 → 10102026 (bỏ qua Toolkit, giữ loại bỏ hoàn toàn khỏi Web).
+- Thông báo: Variant 5 Compact Pro — filter chips (Chưa đọc/Tất cả/theo mục có đếm), list kiểu Gmail (icon gradient theo mục, thời gian tương đối, chấm chưa đọc); nút "ĐỌC HẾT" giữ trong toolbar.
+- Tìm kiếm: thanh segmented 5 ô có icon (Tất cả/SOFT/TÀI LIỆU/FIRMWARE/TIN TỨC) thay chips cũ; ẩn nút mic khi trình duyệt không hỗ trợ voice.
+- Download: toggle xem lưới/danh sách, xóa ô tìm kiếm; Đã lưu: xóa ô tìm kiếm.
+- Chi tiết mục: tiêu đề + ngày sticky khi cuộn. Bottom navigation 68px → 56px.
+- Fix PDF che header (clipRect) là native-only — web dùng iframe nên không áp dụng.
+- Version `10102026`; Service Worker cache `hlu-tools-10102026-v1`; artwork sang `assets/android-v10102026/`.
+
 # 02102026 — 2026-10-02
 
 - Đồng bộ source Android 02102026 trên Web 280926.4; giữ kiến trúc và loại Toolkit.

@@ -1,7 +1,7 @@
 {
   "name": "hlu-tools-github-pages",
   "private": true,
-  "version": "02102026",
+  "version": "10102026",
   "type": "module",
   "scripts": {
     "test": "node scripts/verify.mjs && node scripts/parity-regression.mjs",
