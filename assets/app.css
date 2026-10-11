@@ -79,12 +79,37 @@ html.theme-dark .android-about{background:var(--surface)}
 .notice-head time{flex:none}
 .notice-copy p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .notice-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--primary)}
-/* Search: segmented section filter (Android mẫu 3) */
-.segmented{display:flex;gap:4px;padding:5px;margin:0 0 10px;border-radius:16px;background:#e9f0f8}
-.segmented button{flex:1;min-width:0;border:0;border-radius:12px;background:transparent;padding:9px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-size:10.5px;font-weight:700}
-.segmented button .ui-icon{width:18px;height:18px}
-.segmented button.active{background:var(--primary);color:#fff}
-.segmented button span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Search: filter dropdown (Android mẫu 4) */
+.search-filter{margin:0 0 10px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(20,62,110,.06)}
+.search-filter.open{box-shadow:0 8px 20px rgba(20,62,110,.12)}
+.search-filter-head{width:100%;display:flex;align-items:center;gap:12px;padding:14px;border:0;border-radius:16px;background:transparent;text-align:left}
+.search-filter-badge{width:38px;height:38px;flex:none;display:grid;place-items:center;border-radius:11px;background:var(--primary);color:#fff}
+.search-filter-badge .ui-icon{width:20px;height:20px}
+.search-filter-copy{flex:1;min-width:0}
+.search-filter-copy small{display:block;color:var(--muted);font-size:11.5px}
+.search-filter-copy b{display:block;color:var(--text);font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-filter-caret{width:24px;height:24px;flex:none;display:block;fill:currentColor;color:var(--muted)}
+.search-filter-list{border-top:1px solid var(--line);padding-bottom:6px}
+.search-filter-row{width:100%;display:flex;align-items:center;gap:12px;padding:12px 14px;border:0;background:transparent;text-align:left}
+.search-filter-ic{width:20px;height:20px;flex:none;display:grid;place-items:center;color:var(--muted)}
+.search-filter-ic .ui-icon{width:20px;height:20px}
+.search-filter-row.on .search-filter-ic{color:var(--primary)}
+.search-filter-label{flex:1;min-width:0;font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-filter-row.on .search-filter-label{color:var(--primary);font-weight:700}
+.search-filter-count{font-size:12.5px;color:var(--muted)}
+.search-filter-check{width:20px;height:20px;flex:none;display:grid;place-items:center;color:var(--primary);margin-left:8px}
+.search-filter-check .ui-icon{width:20px;height:20px}
+/* Drive thumbnail: icon placeholder hiện khi ảnh đang tải/lỗi (port Android DriveImages) */
+.content-thumb,.home-news-thumb{position:relative}
+.thumb-ph{position:absolute;inset:0;display:grid;place-items:center;color:#fff}
+.thumb-ph .ui-icon{width:22px;height:22px}
+.content-thumb img,.home-news-thumb img{position:relative;z-index:1}
+img.img-broken{display:none!important}
+.detail-imgwrap{position:relative;margin-top:14px;border-radius:12px;overflow:hidden;background:#f5f7fa;min-height:120px;display:grid;place-items:center}
+.detail-imgwrap .thumb-ph{color:var(--muted2)}
+.detail-imgwrap .thumb-ph .ui-icon{width:34px;height:34px}
+.detail-imgwrap img{position:relative;z-index:1;width:100%;max-height:430px;object-fit:contain;display:block;margin-top:0}
+html.theme-dark .search-filter,html.theme-dark .search-filter-head{background:var(--surface)}
+html.theme-dark .search-filter-list{border-top-color:var(--line)}
 /* Detail: sticky title + date (Android stickyHeader) */
 .detail-sticky{position:sticky;top:calc(60px + env(safe-area-inset-top));z-index:20;margin:-17px -17px 0;padding:14px 17px 10px;background:#fff;border-radius:18px 18px 0 0;box-shadow:0 2px 6px rgba(20,62,110,.07)}
-html.theme-dark .segmented{background:var(--surface)}
