@@ -1,3 +1,11 @@
+# 11102026 — 2026-10-11
+
+- Đồng bộ thay đổi Android 10102026 → 11102026 rev 2 (bỏ qua Toolkit/SpeedTest, giữ loại bỏ hoàn toàn khỏi Web).
+- Tìm kiếm: bộ lọc section chuyển từ segmented sang **dropdown mẫu 4** — card header (icon Tune + "Bộ lọc" + mục đang chọn + icon thu/phóng), bung ra 5 dòng có icon mục, số lượng kết quả và dấu check; thêm 5 icon mới (apps, smartphone, newspaper, expandLess, expandMore) convert không prefix ns0.
+- E-Learning: xóa dòng "cấu hình riêng theo chủ đề" ở card Thời gian thi.
+- Ảnh: thumbnail Google Drive resize sẵn phía server (`thumbnail?id=..&sz=w400/w800` list, `w1024/w1280` chi tiết, theo cài đặt ảnh chất lượng cao); icon placeholder dưới ảnh khi đang tải/lỗi.
+- Version `11102026`; Service Worker cache `hlu-tools-11102026-v1`; artwork giữ `assets/android-v02102026/` (Android không thêm ảnh mới).
+
 # 10102026 — 2026-10-10
 
 - Đồng bộ thay đổi Android 02102026 → 10102026 (bỏ qua Toolkit, giữ loại bỏ hoàn toàn khỏi Web).
